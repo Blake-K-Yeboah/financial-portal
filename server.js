@@ -9,8 +9,12 @@ const app = express();
 // Environment variables config to use '.env' file
 require("dotenv").config();
 
-// CORS middleware
+// CORS Middleware
 app.use(cors());
+
+// Parse Body
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 // Store mongouri to connect to
 const db = process.env.MONGOURI;
@@ -24,6 +28,9 @@ mongoose
    })
    .then(() => console.log("MongoDB successfully connected."))
    .catch((err) => console.log(err));
+
+// Routes
+app.use("/api/auth", require("./routes/auth"));
 
 // Define port variable to run server
 const port = process.env.PORT;

@@ -7,8 +7,13 @@ const router = express.Router();
 // Bank Accounts Controller
 const BankAccountsController = require("../controllers/BankAccountsController");
 
-// Test Request
-router.get("/", (req, res) => res.send("Bank Accounts Here"));
+// Authenticate Middleware
+const authenticate = require("../middleware/authenticate");
+
+// @route GET api/bankaccounts
+// @desc Get all bank accounts
+// @access Private
+router.get("/", authenticate, BankAccountsController.getAll);
 
 // Export Router
 module.exports = router;

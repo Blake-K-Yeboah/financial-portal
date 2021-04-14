@@ -11,7 +11,7 @@ const BankAccountSchema = new Schema({
          type: String, // Deposit, Withdrawal, Point of Sale
          memo: String,
          amount: Number,
-         date: Date,
+         date: { type: Date, default: Date.now() },
       },
    ],
    createdAt: {
@@ -19,6 +19,7 @@ const BankAccountSchema = new Schema({
       default: Date.now,
    },
    linkedTo: String,
+   userId: String,
 });
 
 module.exports = BankAccount = model("bankAccounts", BankAccountSchema);

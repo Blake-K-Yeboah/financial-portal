@@ -38,5 +38,15 @@ router.put(
    BankAccountsController.updateBankAccount
 );
 
+// @route DELETE api/bankaccounts/:id
+// @desc Delete bank account
+// @access Private
+router.delete(
+   "/:id",
+   authenticate,
+   checkId,
+   BankAccountsController.deleteBankAccount
+);
+
 // Export Router
 module.exports = router;

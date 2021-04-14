@@ -28,5 +28,15 @@ router.get("/:id", authenticate, checkId, BankAccountsController.getById);
 // @access Private
 router.post("/create", authenticate, BankAccountsController.createBankAccount);
 
+// @route PUT api/bankaccounts/:id
+// @desc Edit bank account
+// @access Private
+router.put(
+   "/:id",
+   authenticate,
+   checkId,
+   BankAccountsController.updateBankAccount
+);
+
 // Export Router
 module.exports = router;

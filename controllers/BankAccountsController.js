@@ -105,10 +105,33 @@ const updateBankAccount = async (req, res) => {
    }
 };
 
+// Delete Bank Account
+const deleteBankAccount = async (req, res) => {
+   const bankAccount = await BankAccount.findById(req.params.id);
+
+   if (!bankAccount) {
+      return res
+         .status(404)
+         .json({ errors: { account: "Bank account not found." } });
+   }
+
+   try {
+      await bankAccount.delete();
+      res.json(bankAccount);
+   } catch (err) {
+      return res.status(500).json({
+         errors: { server: "An error occured. Try again later." },
+      });
+   }
+};
+
+// TODO: Link Bank Account to Household
+
 // Export Functions
 module.exports = {
    getAll,
    getById,
    createBankAccount,
    updateBankAccount,
+   deleteBankAccount,
 };

@@ -23,5 +23,10 @@ router.get("/", authenticate, BankAccountsController.getAll);
 // @access Private
 router.get("/:id", authenticate, checkId, BankAccountsController.getById);
 
+// @route POST api/bankaccounts/create
+// @desc Create bank account
+// @access Private
+router.post("/create", authenticate, BankAccountsController.createBankAccount);
+
 // Export Router
 module.exports = router;

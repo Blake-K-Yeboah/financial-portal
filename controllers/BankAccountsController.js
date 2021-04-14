@@ -68,11 +68,47 @@ const createBankAccount = async (req, res) => {
    }
 };
 
-// TODO: Edit Bank Account
+// Edit Bank Account
+const updateBankAccount = async (req, res) => {
+   const { errors, isValid } = validateBankAccountInput(req.body);
+
+   if (!isValid) return res.status(400).json({ errors });
+
+   const bankAccount = await BankAccount.findById(req.params.id);
+
+   if (!bankAccount) {
+      return res
+         .status(404)
+         .json({ errors: { account: "No Bank Account with that ID." } });
+   }
+
+   if (bankAccount.userId !== req.user._id) {
+      return res.status(400).json({
+         errors: {
+            account: "You don't own the bank account you're trying to update",
+         },
+      });
+   }
+
+   bankAccount.name = req.body.name;
+   bankAccount.type = req.body.type;
+   bankAccount.balance = req.body.balance;
+   bankAccount.lowBalanceAlert = req.body.lowBalanceAlert;
+
+   try {
+      const updatedBankAccount = await bankAccount.save();
+      res.json(updatedBankAccount);
+   } catch (err) {
+      return res.status(500).json({
+         errors: { server: "An error occured. Try again later." },
+      });
+   }
+};
 
 // Export Functions
 module.exports = {
    getAll,
    getById,
    createBankAccount,
+   updateBankAccount,
 };

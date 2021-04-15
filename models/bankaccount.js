@@ -1,20 +1,14 @@
 const { model, Schema } = require("mongoose");
 
+const TransactionSchema = require("./transaction");
+
 // Define Bank Account Schema
 const BankAccountSchema = new Schema({
    name: String,
    type: String,
    balance: Number,
    lowBalanceAlert: Number,
-   transactions: [
-      {
-         id: String,
-         type: String, // Deposit, Withdrawal, Point of Sale
-         memo: String,
-         amount: Number,
-         date: { type: Date, default: Date.now() },
-      },
-   ],
+   transactions: [TransactionSchema],
    createdAt: {
       type: Date,
       default: Date.now,

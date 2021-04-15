@@ -8,6 +8,7 @@ const BankAccountSchema = new Schema({
    lowBalanceAlert: Number,
    transactions: [
       {
+         id: String,
          type: String, // Deposit, Withdrawal, Point of Sale
          memo: String,
          amount: Number,

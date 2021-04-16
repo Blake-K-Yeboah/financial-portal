@@ -28,6 +28,16 @@ router.get("/:id", authenticate, checkId, BankAccountsController.getById);
 // @access Private
 router.post("/create", authenticate, BankAccountsController.createBankAccount);
 
+// @route PUT api/bankaccounts/:id/link
+// @desc Link bank account to household
+// @access Private
+router.put(
+   "/:id/link",
+   authenticate,
+   checkId,
+   BankAccountsController.linkBankAccount
+);
+
 // @route PUT api/bankaccounts/:id
 // @desc Edit bank account
 // @access Private

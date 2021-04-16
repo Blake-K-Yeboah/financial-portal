@@ -33,6 +33,7 @@ mongoose
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/bankaccounts", require("./routes/bankaccounts"));
 app.use("/api/transactions", require("./routes/transactions"));
+app.use("/api/households", require("./routes/households"));
 
 // Define port variable to run server
 const port = process.env.PORT;

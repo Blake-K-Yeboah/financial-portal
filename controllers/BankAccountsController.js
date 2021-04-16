@@ -1,4 +1,5 @@
 // Require Bank Account Model
+const bankaccount = require("../models/bankaccount");
 const BankAccount = require("../models/bankaccount");
 
 // Validate Bank Account Input Function
@@ -125,7 +126,42 @@ const deleteBankAccount = async (req, res) => {
    }
 };
 
-// TODO: Link Bank Account to Household
+// Link Bank Account to Household
+const linkBankAccount = async (req, res) => {
+   const bankAccount = await BankAccount.findById(req.params.id);
+
+   if (!bankAccount) {
+      return res
+         .status(404)
+         .json({ errors: { account: "Bank account not found." } });
+   }
+
+   if (bankAccount.userId !== req.user._id) {
+      return res.status(400).json({
+         errors: {
+            account: "You don't own the bank account you're trying to update",
+         },
+      });
+   }
+
+   if (!req.body.householdId) {
+      return res.status(400).json({
+         errors: {
+            household: "You must provide a valid household id",
+         },
+      });
+   }
+   bankAccount.linkedTo = req.body.householdId;
+
+   try {
+      await bankAccount.save();
+      res.json(bankAccount);
+   } catch (err) {
+      return res.status(500).json({
+         errors: { server: "An error occured. Try again later." },
+      });
+   }
+};
 
 // Export Functions
 module.exports = {
@@ -134,4 +170,5 @@ module.exports = {
    createBankAccount,
    updateBankAccount,
    deleteBankAccount,
+   linkBankAccount,
 };

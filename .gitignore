@@ -4,3 +4,6 @@ client/node_modules
 
 # Environment Variables
 .env
+
+# Yarn Error Log
+yarn-error.log

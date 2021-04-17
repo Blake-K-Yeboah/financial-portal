@@ -39,6 +39,6 @@ app.use("/api/households", require("./routes/households"));
 const port = process.env.PORT;
 
 // Listen on port defined above
-app.listen(port, () => {
+module.exports = app.listen(port, () => {
    console.log("🚀 Server running on port: " + port);
 });

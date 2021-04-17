@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 
 // Household Model
 const Household = require("../models/household");
+const user = require("../models/user");
 
 // User Model
 const User = require("../models/user");
@@ -151,7 +152,41 @@ const inviteUserToHousehold = async (req, res) => {
    });
 };
 
-// TODO Delete Household
+// Delete Household
+const deleteHousehold = async (req, res) => {
+   const household = await Household.findById(req.params.id);
+
+   if (!household) {
+      return res
+         .status(400)
+         .json({ errors: { household: "Invitational code is invalid" } });
+   }
+
+   if (household.owner != req.user._id) {
+      return res
+         .status(400)
+         .json({ errors: { user: "You are not the owner of the household" } });
+   }
+
+   household.members.forEach(async (member) => {
+      const user = await User.findById(member);
+      user.role = "personal";
+      await user.save();
+   });
+
+   const user = await User.findById(req.user._id);
+   user.role = "personal";
+   await user.save();
+
+   try {
+      await household.delete();
+      res.json(household);
+   } catch (err) {
+      return res.status(500).json({
+         errors: { server: "An error occured. Try again later." },
+      });
+   }
+};
 
 // Export Functions
 module.exports = {
@@ -160,4 +195,5 @@ module.exports = {
    joinHousehold,
    leaveHousehold,
    inviteUserToHousehold,
+   deleteHousehold,
 };

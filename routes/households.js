@@ -53,5 +53,15 @@ router.post(
    HouseholdController.inviteUserToHousehold
 );
 
+// @route DELETE /api/households/:id
+// @desc Delete household
+// @access Private
+router.delete(
+   "/:id",
+   authenticate,
+   checkId,
+   HouseholdController.deleteHousehold
+);
+
 // Export Router
 module.exports = router;

@@ -10,6 +10,9 @@ const HouseholdController = require("../controllers/HouseholdController");
 // Authenticate Middleware
 const authenticate = require("../middleware/authenticate");
 
+// Check ID Middleware
+const checkId = require("../middleware/checkId");
+
 // @route POST /api/households/create
 // @desc Create a household
 // @access Private
@@ -19,6 +22,26 @@ router.post("/create", authenticate, HouseholdController.createHousehold);
 // @desc Get a household by user
 // @access Private
 router.get("/", authenticate, HouseholdController.getHouseholdByUser);
+
+// @route PUT /api/households/join/:id
+// @desc Join household
+// @access Private
+router.put(
+   "/join/:id",
+   authenticate,
+   checkId,
+   HouseholdController.joinHousehold
+);
+
+// @route PUT /api/households/leave/:id
+// @desc Join household
+// @access Private
+router.put(
+   "/leave/:id",
+   authenticate,
+   checkId,
+   HouseholdController.leaveHousehold
+);
 
 // Export Router
 module.exports = router;

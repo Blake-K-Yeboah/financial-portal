@@ -1,6 +1,10 @@
+// Required Packages
+const nodemailer = require("nodemailer");
+
 // Household Model
 const Household = require("../models/household");
 
+// User Model
 const User = require("../models/user");
 
 // Validation Function
@@ -100,7 +104,52 @@ const leaveHousehold = async (req, res) => {
    }
 };
 
-// TODO Invite User To Household
+// Invite User To Household
+const inviteUserToHousehold = async (req, res) => {
+   const household = await Household.findById(req.params.id);
+
+   if (!household) {
+      return res
+         .status(400)
+         .json({ errors: { household: "Invitational code is invalid" } });
+   }
+
+   if (household.owner != req.user._id) {
+      return res
+         .status(400)
+         .json({ errors: { user: "You are not the owner of the household" } });
+   }
+
+   if (!req.body.userEmail) {
+      return res
+         .status(400)
+         .json({ errors: { email: "You must provide an email" } });
+   }
+
+   // Send email to user with household's greeting and invitation code (household ID)
+   const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+         user: process.env.EMAIL,
+         pass: process.env.PASSWORD,
+      },
+   });
+
+   const mailOptions = {
+      from: process.env.EMAIL,
+      to: req.body.userEmail,
+      subject: `You're invited to join ${household.name}`,
+      html: `<h1>You're invited to join ${household.name}</h1><p>Please use the invitational code below to join</p><code>${household._id}`,
+   };
+
+   transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+         console.log(error);
+      } else {
+         res.send("Success!");
+      }
+   });
+};
 
 // TODO Delete Household
 
@@ -110,4 +159,5 @@ module.exports = {
    getHouseholdByUser,
    joinHousehold,
    leaveHousehold,
+   inviteUserToHousehold,
 };

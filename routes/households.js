@@ -34,13 +34,23 @@ router.put(
 );
 
 // @route PUT /api/households/leave/:id
-// @desc Join household
+// @desc Leave household
 // @access Private
 router.put(
    "/leave/:id",
    authenticate,
    checkId,
    HouseholdController.leaveHousehold
+);
+
+// @route POST /api/households/invite/:id
+// @desc Invite user to household
+// @access Private
+router.post(
+   "/invite/:id",
+   authenticate,
+   checkId,
+   HouseholdController.inviteUserToHousehold
 );
 
 // Export Router

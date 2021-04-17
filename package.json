@@ -7,7 +7,14 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "test": "jest --testTimeout=10000"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -19,6 +26,8 @@
     "nodemailer": "^6.5.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   }
 }

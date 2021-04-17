@@ -48,9 +48,57 @@ const getHouseholdByUser = async (req, res) => {
    }
 };
 
-// TODO Join Household
+// Join Household
+const joinHousehold = async (req, res) => {
+   const household = await Household.findById(req.params.id);
 
-// TODO Leave Household
+   if (!household) {
+      return res
+         .status(400)
+         .json({ errors: { household: "Invitational code is invalid" } });
+   }
+
+   household.members.push(req.user._id);
+
+   const user = await User.findById(req.user._id);
+   user.role = "member";
+
+   try {
+      await household.save();
+      await user.save();
+      res.json(household);
+   } catch (err) {
+      return res.status(500).json({
+         errors: { server: "An error occured. Try again later." },
+      });
+   }
+};
+
+// Leave Household
+const leaveHousehold = async (req, res) => {
+   const household = await Household.findById(req.params.id);
+
+   if (!household) {
+      return res
+         .status(400)
+         .json({ errors: { household: "Invitational code is invalid" } });
+   }
+
+   household.members = household.members.filter((id) => id != req.user._id);
+
+   const user = await User.findById(req.user._id);
+   user.role = "personal";
+
+   try {
+      await household.save();
+      await user.save();
+      res.json(household);
+   } catch (err) {
+      return res.status(500).json({
+         errors: { server: "An error occured. Try again later." },
+      });
+   }
+};
 
 // TODO Invite User To Household
 
@@ -60,4 +108,6 @@ const getHouseholdByUser = async (req, res) => {
 module.exports = {
    createHousehold,
    getHouseholdByUser,
+   joinHousehold,
+   leaveHousehold,
 };

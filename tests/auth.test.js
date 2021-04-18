@@ -1,13 +1,20 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../server");
+const User = require("../models/user");
 
 describe("Authentication Endpoints", () => {
+   // Clear Users Collection Before Tests Run
+   beforeAll(() => {
+      User.collection.drop();
+   });
+
+   // Close database connection after tests complete
    afterAll(() => {
       mongoose.connection.close();
    });
 
-   test("Register new user", async () => {
+   it("Register new user", async () => {
       const res = await request(app).post("/api/auth/register").send({
          name: "Test",
          email: "test@gmail.com",
@@ -17,7 +24,7 @@ describe("Authentication Endpoints", () => {
       expect(res.body).toHaveProperty("token");
    });
 
-   test("Receive Name Error", async () => {
+   it("Receive Name Error", async () => {
       const res = await request(app).post("/api/auth/register").send({
          email: "test@gmail.com",
          password: "test1234",

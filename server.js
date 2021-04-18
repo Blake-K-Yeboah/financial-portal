@@ -17,16 +17,18 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Store mongouri to connect to
-const db = process.env.MONGOURI;
+const db =
+   process.env.NODE_ENV !== "testing"
+      ? process.env.MONGOURI
+      : process.env.TEST_DB;
 
 // Connect to Database
 mongoose
    .connect(db, {
       useNewUrlParser: true,
       useFindAndModify: false,
-      useUnifiedTopology: true,
    })
-   .then(() => console.log("MongoDB successfully connected."))
+   .then(() => {})
    .catch((err) => console.log(err));
 
 // Routes
@@ -38,7 +40,10 @@ app.use("/api/households", require("./routes/households"));
 // Define port variable to run server
 const port = process.env.PORT;
 
-// Listen on port defined above
-module.exports = app.listen(port, () => {
-   console.log("🚀 Server running on port: " + port);
-});
+if (process.env.NODE_ENV !== "testing") {
+   app.listen(port, () => {
+      console.log("🚀 Server running on port: " + port);
+   });
+}
+
+module.exports = app;

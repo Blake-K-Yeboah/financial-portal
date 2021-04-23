@@ -10,7 +10,7 @@ describe("Bank Account Endpoints", () => {
    // Bank Account ID for certain tests
    let bankAccountID = "";
 
-   // Clear Bank Account Collection Before Running Tests
+   // Clear Bank Account Collection Before Running Tests and get auth token
    beforeAll(async () => {
       BankAccount.collection.drop();
       const res = await request(app).post("/api/auth/register").send({
@@ -47,5 +47,46 @@ describe("Bank Account Endpoints", () => {
          .set("Authorization", `Bearer ${token}`);
       expect(res.statusCode).toEqual(200);
       expect(res.body.length).toBeGreaterThan(0);
+   });
+
+   it("Get Bank Account By ID", async () => {
+      const res = await request(app)
+         .get(`/api/bankaccounts/${bankAccountID}`)
+         .set("Authorization", `Bearer ${token}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toHaveProperty("_id");
+   });
+
+   it("Link Household To Bank Account", async () => {
+      const res = await request(app)
+         .put(`/api/bankaccounts/${bankAccountID}/link`)
+         .set("Authorization", `Bearer ${token}`)
+         .send({
+            householdId: "TestID",
+         });
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.linkedTo).toEqual("TestID");
+   });
+
+   it("Edit Bank Account", async () => {
+      const res = await request(app)
+         .put(`/api/bankaccounts/${bankAccountID}`)
+         .set("Authorization", `Bearer ${token}`)
+         .send({
+            name: "New Account Name",
+            type: "savings",
+            balance: 5000,
+            lowBalanceAlert: 1000,
+         });
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.name).toEqual("New Account Name");
+   });
+
+   it("Delete Bank Account", async () => {
+      const res = await request(app)
+         .delete(`/api/bankaccounts/${bankAccountID}`)
+         .set("Authorization", `Bearer ${token}`);
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toHaveProperty("_id");
    });
 });

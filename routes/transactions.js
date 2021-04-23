@@ -13,7 +13,14 @@ const authenticate = require("../middleware/authenticate");
 // Check ID Middleware
 const checkId = require("../middleware/checkId");
 
-// TODO Get all transactions for a household
+// @route GET api/transactions/
+// @desc Get all transactions for a household
+// @access Private
+router.get(
+   "/",
+   authenticate,
+   TransactionsController.getTransactionsForHousehold
+);
 
 // @route POST api/transactions/create
 // @desc Create a transaction

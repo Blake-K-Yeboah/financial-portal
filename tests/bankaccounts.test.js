@@ -1,7 +1,6 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
 const app = require("../server");
-const BankAccount = require("../models/bankaccount");
 
 describe("Bank Account Endpoints", () => {
    // User Token For Authorization Header
@@ -10,15 +9,23 @@ describe("Bank Account Endpoints", () => {
    // Bank Account ID for certain tests
    let bankAccountID = "";
 
-   // Clear Bank Account Collection Before Running Tests and get auth token
+   // Get auth token used in requests
    beforeAll(async () => {
-      BankAccount.collection.drop();
-      const res = await request(app).post("/api/auth/register").send({
-         name: "Test",
-         email: "test@gmail.com",
-         password: "test1234",
-      });
-      token = res.body.token;
+      // Register or if theres an error with that login (since user already exists)
+      try {
+         const res = await request(app).post("/api/auth/register").send({
+            name: "Test",
+            email: "test2@gmail.com",
+            password: "test1234",
+         });
+         token = res.body.token;
+      } catch (err) {
+         const res = await request(app).post("/api/auth/login").send({
+            email: "test2@gmail.com",
+            password: "test1234",
+         });
+         token = res.body.token;
+      }
    });
 
    // Close database connection after tests complete

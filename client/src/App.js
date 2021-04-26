@@ -15,9 +15,6 @@ function App() {
                <AuthRoute route="/register">
                   <Register />
                </AuthRoute>
-               <AuthRoute route="/" isProtected>
-                  <h1>Home</h1>
-               </AuthRoute>
             </Switch>
          </Router>
       </>

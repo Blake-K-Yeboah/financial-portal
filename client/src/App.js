@@ -2,7 +2,7 @@
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 
 // Import Pages
-import SignUp from "./components/pages/SignUp";
+import Register from "./components/pages/Register/Register";
 
 // Import AuthRoute Utility
 import AuthRoute from "./util/AuthRoute";
@@ -13,7 +13,7 @@ function App() {
          <Router>
             <Switch>
                <AuthRoute route="/register">
-                  <SignUp />
+                  <Register />
                </AuthRoute>
                <AuthRoute route="/" isProtected>
                   <h1>Home</h1>

@@ -11,7 +11,7 @@ const AuthRoute = (props) => {
             path={props.route}
             render={() => {
                if (!isAuthenticated) return <Redirect to="/register" />;
-               return <>{props.children}</>;
+               return props.children;
             }}
          />
       );
@@ -22,7 +22,7 @@ const AuthRoute = (props) => {
             path={props.route}
             render={() => {
                if (isAuthenticated) return <Redirect to="/" />;
-               return <>{props.children}</>;
+               return props.children;
             }}
          />
       );

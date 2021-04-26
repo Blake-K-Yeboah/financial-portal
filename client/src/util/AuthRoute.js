@@ -4,28 +4,10 @@ import { useSelector } from "react-redux";
 const AuthRoute = (props) => {
    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-   if (props.isProtected) {
-      return (
-         <Route
-            exact
-            path={props.route}
-            render={() => {
-               if (!isAuthenticated) return <Redirect to="/register" />;
-               return props.children;
-            }}
-         />
-      );
+   if (isAuthenticated) {
+      return <Redirect to="/" />;
    } else {
-      return (
-         <Route
-            exact
-            path={props.route}
-            render={() => {
-               if (isAuthenticated) return <Redirect to="/" />;
-               return props.children;
-            }}
-         />
-      );
+      return <Route exact path={props.route} render={() => props.children} />;
    }
 };
 

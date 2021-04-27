@@ -86,6 +86,7 @@ const RegisterForm = () => {
                id="email"
                value={userInput.email}
                onChange={handleInputChange}
+               borderRadius={8}
             />
          </FormControl>
          <FormControl mt={inputMargin}>
@@ -99,6 +100,7 @@ const RegisterForm = () => {
                   id="password"
                   value={userInput.password}
                   onChange={handleInputChange}
+                  borderRadius={8}
                />
                <InputRightElement width="4.5rem">
                   <Button h="1.25rem" size="xs" onClick={handlePasswordClick}>

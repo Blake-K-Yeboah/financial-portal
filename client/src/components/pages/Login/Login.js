@@ -60,7 +60,7 @@ const Login = () => {
                   Login
                </Heading>
                <Text fontSize="md" pt={5} color="gray.800">
-                  Fill out the following form to login
+                  Welcome back!
                </Text>
                <ErrorAlert
                   errors={errors}

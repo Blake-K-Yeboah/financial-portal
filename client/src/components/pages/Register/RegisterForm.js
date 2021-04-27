@@ -21,6 +21,9 @@ import { setUser, setErrors } from "../../../slicers/authSlice";
 // Import axios
 import axios from "axios";
 
+// useHistory hook
+import { useHistory } from "react-router-dom";
+
 const RegisterForm = () => {
    // Redux Dispatch
    const dispatch = useDispatch();
@@ -49,6 +52,9 @@ const RegisterForm = () => {
       setUserInput({ ...userInput, [e.target.id]: e.target.value });
    };
 
+   // History
+   let history = useHistory();
+
    // Handle Form Submission
    const handleFormSubmit = async (e) => {
       e.preventDefault();
@@ -60,6 +66,8 @@ const RegisterForm = () => {
          .then((res) => {
             setIsLoading(false);
             dispatch(setUser(res.data.token));
+            localStorage.setItem("token", res.data.token);
+            history.push("/");
          })
          .catch((err) => {
             setIsLoading(false);

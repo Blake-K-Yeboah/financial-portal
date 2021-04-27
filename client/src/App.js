@@ -2,16 +2,19 @@
 import { useEffect } from "react";
 
 // Import React Router Stuff
-import { BrowserRouter as Router, Switch } from "react-router-dom";
+import {
+   BrowserRouter as Router,
+   Redirect,
+   Route,
+   Switch,
+} from "react-router-dom";
 
 // Import Pages
 import Register from "./components/pages/Register/Register";
+import Login from "./components/pages/Login/Login";
 
-// Import AuthRoute Utility
-import AuthRoute from "./util/AuthRoute";
-
-// useDispatch hook
-import { useDispatch } from "react-redux";
+// useDispatch hook and useSelector hook
+import { useDispatch, useSelector } from "react-redux";
 
 // setUser action
 import { setUser } from "./slicers/authSlice";
@@ -28,12 +31,28 @@ const App = () => {
       }
    }, []);
 
+   // isAuthenticated
+   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
    return (
       <Router>
          <Switch>
-            <AuthRoute route="/register">
-               <Register />
-            </AuthRoute>
+            <Route
+               exact
+               path="/register"
+               render={(props) => {
+                  if (isAuthenticated) return <Redirect to="/" />;
+                  return <Register {...props} />;
+               }}
+            />
+            <Route
+               exact
+               path="/login"
+               render={(props) => {
+                  if (isAuthenticated) return <Redirect to="/" />;
+                  return <Login {...props} />;
+               }}
+            />
          </Switch>
       </Router>
    );

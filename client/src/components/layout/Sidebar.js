@@ -57,11 +57,25 @@ const Sidebar = ({ page }) => {
                   d="flex"
                   alignItems="center"
                   pl={3}
+                  transition="background .25s ease-in-out"
+                  sx={
+                     page !== link.page
+                        ? {
+                             _hover: {
+                                background: "gray.100",
+                                ".sidebar-text": {
+                                   color: "gray.700",
+                                },
+                             },
+                          }
+                        : ""
+                  }
                >
                   <Text
                      fontSize="sm"
                      fontWeight="bold"
                      color={page === link.page ? "green.300" : "gray.600"}
+                     className="sidebar-text"
                   >
                      <LinkOverlay as={NavLink} to={link.route}>
                         {link.displayText}

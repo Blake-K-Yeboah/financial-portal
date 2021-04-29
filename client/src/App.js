@@ -12,6 +12,7 @@ import {
 // Import Pages
 import Register from "./components/pages/Register/Register";
 import Login from "./components/pages/Login/Login";
+import Home from "./components/pages/Home/Home";
 
 // useDispatch hook and useSelector hook
 import { useDispatch, useSelector } from "react-redux";
@@ -51,6 +52,15 @@ const App = () => {
                render={(props) => {
                   if (isAuthenticated) return <Redirect to="/" />;
                   return <Login {...props} />;
+               }}
+            />
+
+            <Route
+               exact
+               path="/"
+               render={(props) => {
+                  if (!isAuthenticated) return <Redirect to="/login" />;
+                  return <Home {...props} />;
                }}
             />
          </Switch>

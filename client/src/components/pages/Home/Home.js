@@ -1,6 +1,12 @@
+// Chakra UI Components
 import { Container, Grid, GridItem } from "@chakra-ui/react";
+
+// Helmet to Access Head
 import { Helmet } from "react-helmet";
+
+// Page Components
 import Navbar from "../../layout/Navbar";
+import Sidebar from "../../layout/Sidebar";
 
 const Home = () => {
    return (
@@ -17,7 +23,9 @@ const Home = () => {
                   templateColumns="repeat(8, 1fr)"
                   gap={4}
                >
-                  <GridItem rowSpan={4} colSpan={2} bg="green.400" />
+                  <GridItem rowSpan={4} colSpan={2}>
+                     <Sidebar page="home" />
+                  </GridItem>
                   <GridItem colSpan={2} bg="green.100" />
                   <GridItem colSpan={2} bg="green.100" />
                   <GridItem colSpan={2} bg="green.100" />

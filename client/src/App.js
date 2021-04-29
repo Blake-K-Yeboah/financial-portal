@@ -30,7 +30,7 @@ const App = () => {
       if (token) {
          dispatch(setUser(token));
       }
-   }, []);
+   }, [dispatch]);
 
    // isAuthenticated
    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);

@@ -58,6 +58,7 @@ const Sidebar = ({ page }) => {
                   alignItems="center"
                   pl={3}
                   transition="background .25s ease-in-out"
+                  key={link.page}
                   sx={
                      page !== link.page
                         ? {

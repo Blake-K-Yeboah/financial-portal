@@ -10,36 +10,50 @@ import { Helmet } from "react-helmet";
 // Page Components
 import Navbar from "../../layout/Navbar";
 import Sidebar from "../../layout/Sidebar";
+import BankAccountsBox from "./BankAccountsBox";
+import TransactionsBox from "./TransactionsBox";
 
 // useDispatch
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+// useHistory hook to redirect user
+import { useHistory } from "react-router";
 
 // Axios for HTTP Requests
-import axios from 'axios';
+import axios from "axios";
 
 // Store Actions
-import { setBankAccounts } from '../../../slicers/bankAccountsSlice';
-import BankAccountsBox from "./BankAccountsBox";
+import { setBankAccounts } from "../../../slicers/bankAccountsSlice";
+import { setUser } from "../../../slicers/authSlice";
 
 const Home = () => {
-
    const dispatch = useDispatch();
 
-   useEffect(() => {
-      const fetchBankAccounts = async () => {
-         try {
-            const res = await axios.get("/api/bankaccounts", { headers: {
-               'Authorization': `Bearer ${localStorage.getItem('token')}`
-            }});
-            dispatch(setBankAccounts(res.data));
-         } catch(err) {
-            alert("An error occured");
-            console.error(err);
-         }
-      }
+   const history = useHistory();
 
-      fetchBankAccounts();
-   }, [dispatch]);
+   const token = useSelector((state) => state.auth.token);
+
+   useEffect(() => {
+      axios
+         .get("/api/bankaccounts", {
+            headers: {
+               Authorization: `Bearer ${token}`,
+            },
+         })
+         .then((res) => {
+            dispatch(setBankAccounts(res.data));
+         })
+         .catch((err) => {
+            if (err.response.status === 401) {
+               alert("Session expired. Please login again");
+               setTimeout(() => {
+                  localStorage.removeItem("token");
+                  dispatch(setUser(null));
+                  history.push("/login");
+               });
+            }
+         });
+   }, [dispatch, history, token]);
 
    return (
       <>
@@ -61,7 +75,9 @@ const Home = () => {
                   <GridItem colSpan={2}>
                      <BankAccountsBox />
                   </GridItem>
-                  <GridItem colSpan={2} bg="green.100" />
+                  <GridItem colSpan={2}>
+                     <TransactionsBox />
+                  </GridItem>
                   <GridItem colSpan={2} bg="green.100" />
                   <GridItem colSpan={6} rowSpan={3} bg="green.300" />
                </Grid>

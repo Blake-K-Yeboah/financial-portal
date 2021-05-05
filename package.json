@@ -10,7 +10,7 @@
     "server": "nodemon server.js",
     "test": "cross-env NODE_ENV=testing jest --testTimeout=10000",
     "client": "cd client && yarn start",
-    "dev": "concurrently -kill-others \"yarn run server\" \"yarn run client\""
+    "dev": "concurrently -kill-others \"yarn run start\" \"yarn run client\""
   },
   "jest": {
     "testEnvironment": "node",

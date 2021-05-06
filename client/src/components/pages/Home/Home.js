@@ -12,6 +12,7 @@ import Navbar from "../../layout/Navbar";
 import Sidebar from "../../layout/Sidebar";
 import BankAccountsBox from "./BankAccountsBox";
 import TransactionsBox from "./TransactionsBox";
+import TotalSpentBox from "./TotalSpentBox";
 
 // useDispatch
 import { useDispatch, useSelector } from "react-redux";
@@ -78,7 +79,9 @@ const Home = () => {
                   <GridItem colSpan={2}>
                      <TransactionsBox />
                   </GridItem>
-                  <GridItem colSpan={2} bg="green.100" />
+                  <GridItem colSpan={2}>
+                     <TotalSpentBox />
+                  </GridItem>
                   <GridItem colSpan={6} rowSpan={4} bg="green.300" />
                </Grid>
             </Container>

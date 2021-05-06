@@ -1,11 +1,5 @@
 // Chakra Ui Components
-import {
-   Stat,
-   StatHelpText,
-   StatLabel,
-   StatNumber,
-   Box,
-} from "@chakra-ui/react";
+import { Stat, StatLabel, StatNumber, Box } from "@chakra-ui/react";
 
 // useSelector
 import { useSelector } from "react-redux";
@@ -18,15 +12,6 @@ const TransactionsBox = () => {
          (account) => account.userId === user._id
       )
    );
-
-   const userCreatedAt = user.createdAt.substring(0, 9).replaceAll("-", "/");
-
-   const reverseDate = () => {
-      return `${userCreatedAt.substring(8, 9)}/${userCreatedAt.substring(
-         5,
-         7
-      )}/${userCreatedAt.substring(0, 4)}`;
-   };
 
    const calculateTransactionCount = () => {
       let total = 0;
@@ -43,7 +28,6 @@ const TransactionsBox = () => {
          <Stat>
             <StatLabel>Transactions</StatLabel>
             <StatNumber>{calculateTransactionCount()}</StatNumber>
-            <StatHelpText>Since {reverseDate()}</StatHelpText>
          </Stat>
       </Box>
    );

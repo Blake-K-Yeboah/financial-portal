@@ -64,7 +64,7 @@ const Home = () => {
          </Helmet>
          <>
             <Navbar />
-            <Container maxW="container.xl" h="75vh" mt={16}>
+            <Container maxW="container.xl" minH="75vh" mt={16}>
                <Grid
                   h="100%"
                   templateRows="repeat(5, 1fr)"

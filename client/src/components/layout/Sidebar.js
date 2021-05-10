@@ -13,15 +13,29 @@ import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ page }) => {
    const user = useSelector((state) => state.auth.user);
-   const links = [
-      { displayText: "HOME", route: "/", page: "home" },
-      {
-         displayText: "BANK ACCOUNTS",
-         route: "/bank-accounts",
-         page: "bankaccount",
-      },
-      { displayText: "HOUSEHOLD", route: "/household", page: "household" },
-   ];
+   let links =
+      user.role === "personal"
+         ? [
+              { displayText: "HOME", route: "/", page: "home" },
+              {
+                 displayText: "BANK ACCOUNTS",
+                 route: "/bank-accounts",
+                 page: "bankaccount",
+              },
+           ]
+         : [
+              { displayText: "HOME", route: "/", page: "home" },
+              {
+                 displayText: "BANK ACCOUNTS",
+                 route: "/bank-accounts",
+                 page: "bankaccount",
+              },
+              {
+                 displayText: "HOUSEHOLD",
+                 route: "/household",
+                 page: "household",
+              },
+           ];
 
    return (
       <Box w="100%" h="100%" bg="white" boxShadow="sm" p={8} borderRadius={8}>

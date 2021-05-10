@@ -29,7 +29,8 @@ const ThingsToDoSection = () => {
       borderRadius: 6,
       sx: { _hover: { background: "gray.50" } },
       transition: "background .3s ease-in-out",
-      boxShadow: "base",
+      border: "1px",
+      borderColor: "gray.100",
    };
 
    return (

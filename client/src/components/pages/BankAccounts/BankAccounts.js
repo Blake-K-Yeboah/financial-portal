@@ -1,5 +1,5 @@
 // Chakra UI Components
-import { Container, Grid, GridItem } from "@chakra-ui/react";
+import { Container, Grid, GridItem, useDisclosure } from "@chakra-ui/react";
 
 // useEffect Hook
 import { useEffect } from "react";
@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet";
 import Navbar from "../../layout/Navbar";
 import Sidebar from "../../layout/Sidebar";
 import AllAccounts from "./AllAccounts";
+import CreateBankAccount from "./CreateBankAccount";
 
 // useDispatch
 import { useDispatch, useSelector } from "react-redux";
@@ -54,6 +55,8 @@ const BankAccounts = () => {
          });
    }, [dispatch, history, token]);
 
+   const { isOpen, onOpen, onClose } = useDisclosure();
+
    return (
       <>
          <Helmet>
@@ -67,10 +70,11 @@ const BankAccounts = () => {
                      <Sidebar page="bankaccount" />
                   </GridItem>
                   <GridItem colSpan={6}>
-                     <AllAccounts />
+                     <AllAccounts onOpen={onOpen} />
                   </GridItem>
                </Grid>
             </Container>
+            <CreateBankAccount isOpen={isOpen} onClose={onClose} />
          </>
       </>
    );

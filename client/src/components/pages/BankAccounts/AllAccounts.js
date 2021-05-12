@@ -22,7 +22,7 @@ import { useHistory } from "react-router-dom";
 // Add Icon For Create Bank Account Btn
 import { AddIcon } from "@chakra-ui/icons";
 
-const AllAccounts = () => {
+const AllAccounts = ({ onOpen }) => {
    const user = useSelector((state) => state.auth.user);
 
    const bankAccounts = useSelector((state) => {
@@ -72,6 +72,7 @@ const AllAccounts = () => {
             position="absolute"
             top={8}
             right={8}
+            onClick={onOpen}
          >
             <AddIcon mr={2} /> Create Bank Account
          </Button>

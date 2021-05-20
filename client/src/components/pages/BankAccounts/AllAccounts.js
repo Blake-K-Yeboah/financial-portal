@@ -94,7 +94,7 @@ const AllAccounts = ({ onOpen }) => {
                <Tbody>
                   {bankAccounts.map((account) => {
                      return (
-                        <Tr>
+                        <Tr key={account._id}>
                            <Td>{account.name}</Td>
                            <Td>{capitalise(account.type)}</Td>
                            <Td>{account.transactions.length}</Td>

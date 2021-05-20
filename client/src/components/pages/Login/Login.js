@@ -1,11 +1,4 @@
-import {
-   Box,
-   Flex,
-   Heading,
-   Text,
-   Link,
-   useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Text, Link } from "@chakra-ui/react";
 
 // Helmet to access head and change title
 import Helmet from "react-helmet";
@@ -22,22 +15,12 @@ import { NavLink } from "react-router-dom";
 
 // Set Error Action
 import { setErrors } from "../../../slicers/authSlice";
-import { useEffect } from "react";
 
 const Login = () => {
    const errors = useSelector((state) => state.auth.errors);
    const dispatch = useDispatch();
 
-   const { isOpen, onToggle } = useDisclosure();
-
-   useEffect(() => {
-      if (errors && !isOpen) {
-         onToggle();
-      }
-   }, [errors, onToggle, isOpen]);
-
    const closeError = () => {
-      onToggle();
       dispatch(setErrors(null));
    };
 
@@ -62,11 +45,7 @@ const Login = () => {
                <Text fontSize="md" pt={5} color="gray.800">
                   Welcome back!
                </Text>
-               <ErrorAlert
-                  errors={errors}
-                  isOpen={isOpen}
-                  closeHandler={closeError}
-               />
+               <ErrorAlert errors={errors} closeHandler={closeError} />
                <LoginForm />
                <Link
                   as={NavLink}

@@ -13,9 +13,30 @@ import {
    Input,
    Select,
 } from "@chakra-ui/react";
+
+// useState Hook
 import { useState } from "react";
 
-const CreateBankAccount = ({ isOpen, onClose }) => {
+// Components
+import ErrorAlert from "../../alerts/ErrorAlert";
+
+// Import Axios
+import axios from "axios";
+
+// Redux hooks
+import { useDispatch, useSelector } from "react-redux";
+
+// Redux Actions
+import { addBankAccount } from "../../../slicers/bankAccountsSlice";
+import { setUser } from "../../../slicers/authSlice";
+
+// UseHistory hook to redirect user
+import { useHistory } from "react-router-dom";
+
+const CreateBankAccount = ({ modalIsOpen, modalOnClose }) => {
+   // Loading state from form submission
+   const [isLoading, setIsLoading] = useState(false);
+
    const [userInput, setUserInput] = useState({
       name: "",
       type: "",
@@ -27,13 +48,53 @@ const CreateBankAccount = ({ isOpen, onClose }) => {
       setUserInput({ ...userInput, [e.target.id]: e.target.value });
    };
 
+   const [errors, setErrors] = useState(null);
+
+   const dispatch = useDispatch();
+
+   const closeError = () => {
+      setErrors(null);
+   };
+
+   const token = useSelector((state) => state.auth.token);
+
+   let history = useHistory();
+
+   const createBankAccountHandler = () => {
+      setIsLoading(true);
+
+      axios
+         .post("/api/bankaccounts/create", userInput, {
+            headers: {
+               Authorization: `Bearer ${token}`,
+            },
+         })
+         .then((res) => {
+            setIsLoading(false);
+            dispatch(addBankAccount(res.data));
+            alert("Bank Account Created");
+         })
+         .catch((err) => {
+            if (err.response.status !== 401) {
+               setIsLoading(false);
+               setErrors(Object.values(err.response.data.errors));
+            } else {
+               alert("Session expired. Please login again");
+               localStorage.removeItem("token");
+               dispatch(setUser(null));
+               history.push("/login");
+            }
+         });
+   };
+
    return (
-      <Modal isOpen={isOpen} onClose={onClose} isCentered size="lg">
+      <Modal isOpen={modalIsOpen} onClose={modalOnClose} isCentered size="lg">
          <ModalOverlay />
          <ModalContent>
             <ModalHeader>Create Bank Account</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
+               <ErrorAlert errors={errors} closeHandler={closeError} />
                <FormControl mt={4}>
                   <FormLabel>Name</FormLabel>
                   <Input
@@ -78,10 +139,16 @@ const CreateBankAccount = ({ isOpen, onClose }) => {
                </FormControl>
             </ModalBody>
             <ModalFooter>
-               <Button colorScheme="green" mr={3}>
+               <Button
+                  colorScheme="green"
+                  mr={3}
+                  isLoading={isLoading}
+                  loadingText="Creating Account"
+                  onClick={createBankAccountHandler}
+               >
                   Create Account
                </Button>
-               <Button colorScheme="red" onClick={onClose}>
+               <Button colorScheme="red" onClick={modalOnClose}>
                   Cancel
                </Button>
             </ModalFooter>

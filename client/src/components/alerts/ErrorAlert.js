@@ -7,12 +7,11 @@ import {
    ListItem,
    Box,
    CloseButton,
-   Fade,
 } from "@chakra-ui/react";
 
-const ErrorAlert = ({ errors, isOpen, closeHandler }) => {
+const ErrorAlert = ({ errors, closeHandler }) => {
    return (
-      <Fade in={isOpen}>
+      <>
          {!errors ? (
             ""
          ) : (
@@ -42,7 +41,7 @@ const ErrorAlert = ({ errors, isOpen, closeHandler }) => {
                </Box>
             </Alert>
          )}
-      </Fade>
+      </>
    );
 };
 

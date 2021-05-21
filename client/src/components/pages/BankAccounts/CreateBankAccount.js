@@ -35,6 +35,7 @@ import { setUser } from "../../../slicers/authSlice";
 import { useHistory } from "react-router-dom";
 
 const CreateBankAccount = ({ modalIsOpen, modalOnClose }) => {
+   // Blank user input to be used when resetting input
    const blankInput = {
       name: "",
       type: "",
@@ -45,26 +46,35 @@ const CreateBankAccount = ({ modalIsOpen, modalOnClose }) => {
    // Loading state from form submission
    const [isLoading, setIsLoading] = useState(false);
 
+   // Control user input form
    const [userInput, setUserInput] = useState(blankInput);
 
+   // Handle input change event to update state
    const inputOnChange = (e) => {
       setUserInput({ ...userInput, [e.target.id]: e.target.value });
    };
 
+   // Store errors from axios request
    const [errors, setErrors] = useState(null);
 
+   // Define dispatch to dispatch actions
    const dispatch = useDispatch();
 
+   // Handle closing error alert
    const closeError = () => {
       setErrors(null);
    };
 
+   // Access token from state
    const token = useSelector((state) => state.auth.token);
 
+   // history hook to redirect user
    let history = useHistory();
 
+   // usetoast hook to toast on successful request
    const toast = useToast();
 
+   // Create Bank Account Handler called when create button is clicked
    const createBankAccountHandler = () => {
       setIsLoading(true);
 

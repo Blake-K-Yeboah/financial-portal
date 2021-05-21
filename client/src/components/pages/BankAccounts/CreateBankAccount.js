@@ -12,6 +12,7 @@ import {
    FormLabel,
    Input,
    Select,
+   useToast,
 } from "@chakra-ui/react";
 
 // useState Hook
@@ -34,15 +35,17 @@ import { setUser } from "../../../slicers/authSlice";
 import { useHistory } from "react-router-dom";
 
 const CreateBankAccount = ({ modalIsOpen, modalOnClose }) => {
-   // Loading state from form submission
-   const [isLoading, setIsLoading] = useState(false);
-
-   const [userInput, setUserInput] = useState({
+   const blankInput = {
       name: "",
       type: "",
       balance: 0,
       lowBalanceAlert: 0,
-   });
+   };
+
+   // Loading state from form submission
+   const [isLoading, setIsLoading] = useState(false);
+
+   const [userInput, setUserInput] = useState(blankInput);
 
    const inputOnChange = (e) => {
       setUserInput({ ...userInput, [e.target.id]: e.target.value });
@@ -60,6 +63,8 @@ const CreateBankAccount = ({ modalIsOpen, modalOnClose }) => {
 
    let history = useHistory();
 
+   const toast = useToast();
+
    const createBankAccountHandler = () => {
       setIsLoading(true);
 
@@ -72,7 +77,14 @@ const CreateBankAccount = ({ modalIsOpen, modalOnClose }) => {
          .then((res) => {
             setIsLoading(false);
             dispatch(addBankAccount(res.data));
-            alert("Bank Account Created");
+            toast({
+               title: "Bank Account Created.",
+               description: "Your account has been created.",
+               status: "success",
+               duration: 7000,
+               isClosable: true,
+            });
+            setUserInput(blankInput);
          })
          .catch((err) => {
             if (err.response.status !== 401) {

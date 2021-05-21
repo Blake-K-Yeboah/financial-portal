@@ -33,6 +33,7 @@ const ThingsToDoSection = () => {
       transition: "background .3s ease-in-out",
       border: "1px",
       borderColor: "gray.100",
+      cursor: "pointer",
    };
 
    const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,12 +76,7 @@ const ThingsToDoSection = () => {
                         height={5}
                         mr={5}
                      />
-                     <Heading
-                        as="h5"
-                        size="md"
-                        color="green.400"
-                        cursor="pointer"
-                     >
+                     <Heading as="h5" size="md" color="green.400">
                         {hasHousehold ? (
                            <>
                               <LinkOverlay as={NavLink} to="/household">

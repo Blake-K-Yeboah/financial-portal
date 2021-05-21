@@ -9,6 +9,6 @@ module.exports = (req, res, next) => {
    } else {
       return res
          .status(400)
-         .json({ errors: { id: "ID must be of type MongoDB ObjectID" } });
+         .json({ errors: { id: "There was a problem with your request." } });
    }
 };

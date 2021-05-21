@@ -26,12 +26,7 @@ router.get("/", authenticate, HouseholdController.getHouseholdByUser);
 // @route PUT /api/households/join/:id
 // @desc Join household
 // @access Private
-router.put(
-   "/join/:id",
-   authenticate,
-   checkId,
-   HouseholdController.joinHousehold
-);
+router.put("/join/:id", authenticate, HouseholdController.joinHousehold);
 
 // @route PUT /api/households/leave/:id
 // @desc Leave household

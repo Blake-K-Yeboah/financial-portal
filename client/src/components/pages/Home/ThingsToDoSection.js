@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 // Icons
-import { ViewIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { ViewIcon, ArrowForwardIcon, AddIcon } from "@chakra-ui/icons";
 
 // NavLink from react router dom
 import { NavLink } from "react-router-dom";
@@ -89,6 +89,21 @@ const ThingsToDoSection = () => {
                      </Heading>
                   </Flex>
                </LinkBox>
+
+               {hasHousehold ? (
+                  ""
+               ) : (
+                  <LinkBox {...linkBoxProps}>
+                     <Flex alignItems="center" justifyContent="center" h="100%">
+                        <AddIcon color="green.400" w={5} height={5} mr={5} />
+                        <Heading as="h5" size="md" color="green.400">
+                           <LinkOverlay as={NavLink} to="/household/create">
+                              Create Household
+                           </LinkOverlay>
+                        </Heading>
+                     </Flex>
+                  </LinkBox>
+               )}
             </SimpleGrid>
          </Box>
          <JoinHouseholdModal isOpen={isOpen} onClose={onClose} />

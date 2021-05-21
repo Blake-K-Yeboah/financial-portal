@@ -6,7 +6,8 @@ import {
    LinkBox,
    LinkOverlay,
    SimpleGrid,
-} from "@chakra-ui/layout";
+   useDisclosure,
+} from "@chakra-ui/react";
 
 // Icons
 import { ViewIcon, ArrowForwardIcon } from "@chakra-ui/icons";
@@ -16,6 +17,7 @@ import { NavLink } from "react-router-dom";
 
 // useSelector hook to access state
 import { useSelector } from "react-redux";
+import JoinHouseholdModal from "./JoinHouseholdModal";
 
 const ThingsToDoSection = () => {
    const userRole = useSelector((state) => state.auth.user.role);
@@ -33,37 +35,68 @@ const ThingsToDoSection = () => {
       borderColor: "gray.100",
    };
 
+   const { isOpen, onOpen, onClose } = useDisclosure();
+
+   const handleHouseholdClick = () => {
+      if (!hasHousehold) {
+         onOpen();
+      }
+   };
+
    return (
-      <Box w="100%" h="100%" bg="white" boxShadow="sm" p={8} borderRadius={8}>
-         <Heading as="h3" size="md" color="gray.600">
-            Things To Do
-         </Heading>
-         <SimpleGrid columns={2} spacing={8} mt={8}>
-            <LinkBox {...linkBoxProps}>
-               <Flex alignItems="center" justifyContent="center" h="100%">
-                  <ViewIcon color="green.400" w={5} height={5} mr={5} />
-                  <Heading as="h5" size="md" color="green.400">
-                     <LinkOverlay as={NavLink} to="/bank-accounts">
-                        View Bank Accounts
-                     </LinkOverlay>
-                  </Heading>
-               </Flex>
-            </LinkBox>
-            <LinkBox {...linkBoxProps}>
-               <Flex alignItems="center" justifyContent="center" h="100%">
-                  <ArrowForwardIcon color="green.400" w={5} height={5} mr={5} />
-                  <Heading as="h5" size="md" color="green.400">
-                     <LinkOverlay
-                        as={NavLink}
-                        to={hasHousehold ? "/household" : "/household/join"}
+      <>
+         <Box
+            w="100%"
+            h="100%"
+            bg="white"
+            boxShadow="sm"
+            p={8}
+            borderRadius={8}
+         >
+            <Heading as="h3" size="md" color="gray.600">
+               Things To Do
+            </Heading>
+            <SimpleGrid columns={2} spacing={8} mt={8}>
+               <LinkBox {...linkBoxProps}>
+                  <Flex alignItems="center" justifyContent="center" h="100%">
+                     <ViewIcon color="green.400" w={5} height={5} mr={5} />
+                     <Heading as="h5" size="md" color="green.400">
+                        <LinkOverlay as={NavLink} to="/bank-accounts">
+                           View Bank Accounts
+                        </LinkOverlay>
+                     </Heading>
+                  </Flex>
+               </LinkBox>
+               <LinkBox {...linkBoxProps} onClick={handleHouseholdClick}>
+                  <Flex alignItems="center" justifyContent="center" h="100%">
+                     <ArrowForwardIcon
+                        color="green.400"
+                        w={5}
+                        height={5}
+                        mr={5}
+                     />
+                     <Heading
+                        as="h5"
+                        size="md"
+                        color="green.400"
+                        cursor="pointer"
                      >
-                        {hasHousehold ? "View" : "Join"} Household
-                     </LinkOverlay>
-                  </Heading>
-               </Flex>
-            </LinkBox>
-         </SimpleGrid>
-      </Box>
+                        {hasHousehold ? (
+                           <>
+                              <LinkOverlay as={NavLink} to="/household">
+                                 View Household
+                              </LinkOverlay>
+                           </>
+                        ) : (
+                           "Join Household"
+                        )}
+                     </Heading>
+                  </Flex>
+               </LinkBox>
+            </SimpleGrid>
+         </Box>
+         <JoinHouseholdModal isOpen={isOpen} onClose={onClose} />
+      </>
    );
 };
 

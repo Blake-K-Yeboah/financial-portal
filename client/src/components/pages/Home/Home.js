@@ -64,26 +64,49 @@ const Home = () => {
          </Helmet>
          <>
             <Navbar page="home" />
-            <Container maxW="container.xl" minH="75vh" mt={16}>
+            <Container
+               maxW="container.xl"
+               h={{ base: "120vh", md: "75vh" }}
+               overflowY="hidden"
+               mt={{ base: -16, md: 16 }}
+            >
                <Grid
                   h="100%"
-                  templateRows="repeat(5, 1fr)"
+                  templateRows={{
+                     base: "repeat(8, 1fr)",
+                     md: "repeat(5, 1fr)",
+                  }}
                   templateColumns="repeat(8, 1fr)"
                   gap={4}
                >
-                  <GridItem rowSpan={5} colSpan={2}>
+                  <GridItem
+                     rowSpan={{ base: 0, md: 5 }}
+                     colSpan={{ base: 0, md: 3, lg: 2 }}
+                  >
                      <Sidebar page="home" />
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem
+                     colSpan={{ base: 2, sm: 8, md: 2, lg: 2 }}
+                     rowSpan={1}
+                  >
                      <BankAccountsBox />
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem
+                     colSpan={{ base: 1, sm: 8, md: 1, lg: 2 }}
+                     rowSpan={1}
+                  >
                      <TransactionsBox />
                   </GridItem>
-                  <GridItem colSpan={2}>
+                  <GridItem
+                     colSpan={{ base: 2, sm: 8, md: 2, lg: 2 }}
+                     rowSpan={1}
+                  >
                      <TotalSpentBox />
                   </GridItem>
-                  <GridItem colSpan={6} rowSpan={4}>
+                  <GridItem
+                     colSpan={{ base: 5, sm: 8, md: 5, lg: 6 }}
+                     rowSpan={4}
+                  >
                      <ThingsToDoSection />
                   </GridItem>
                </Grid>

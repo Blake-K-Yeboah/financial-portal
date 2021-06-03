@@ -63,7 +63,7 @@ const Home = () => {
             <title>Financial Portal - Home</title>
          </Helmet>
          <>
-            <Navbar />
+            <Navbar page="home" />
             <Container maxW="container.xl" minH="75vh" mt={16}>
                <Grid
                   h="100%"

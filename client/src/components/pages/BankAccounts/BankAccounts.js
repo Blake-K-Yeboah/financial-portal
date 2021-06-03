@@ -48,14 +48,7 @@ const BankAccounts = () => {
                overflowY="hidden"
                mt={{ base: 0, md: 16 }}
             >
-               <Grid
-                  h="100%"
-                  templateColumns={{
-                     base: "repeat(8, 1fr)",
-                     xl: "repeat(8, 1fr)",
-                  }}
-                  gap={4}
-               >
+               <Grid h="100%" templateColumns="repeat(8, 1fr)" gap={4}>
                   <GridItem colSpan={{ base: 0, md: 3, lg: 2 }}>
                      <Sidebar page="bankaccount" />
                   </GridItem>

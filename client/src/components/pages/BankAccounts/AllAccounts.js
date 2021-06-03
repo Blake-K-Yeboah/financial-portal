@@ -44,8 +44,8 @@ const AllAccounts = ({ onOpen }) => {
    return (
       <Box
          w="100%"
-         h="100%"
-         maxH="75vh"
+         h={{ base: "80vh", md: "100%" }}
+         maxH={{ base: "999vh", md: "75vh" }}
          bg="white"
          boxShadow="sm"
          position="relative"
@@ -62,17 +62,25 @@ const AllAccounts = ({ onOpen }) => {
             },
          }}
       >
-         <Heading as="h3" size="md" color="gray.600">
+         <Heading
+            as="h3"
+            size="md"
+            color="gray.600"
+            textAlign={{ base: "center", md: "left" }}
+         >
             Your Bank Accounts
          </Heading>
 
          <Button
             colorScheme="green"
             size="md"
-            position="absolute"
-            top={8}
-            right={8}
+            position={{ base: "relative", md: "absolute" }}
+            top={{ md: 5, lg: 8 }}
+            right={{ md: 5, lg: 8 }}
+            left={{ base: "50%", md: "initial" }}
+            transform={{ base: "translateX(-50%)", md: "none" }}
             onClick={onOpen}
+            mt={{ base: 6, md: 0 }}
          >
             <AddIcon mr={2} /> Create Bank Account
          </Button>

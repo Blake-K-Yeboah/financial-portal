@@ -48,7 +48,7 @@ const ThingsToDoSection = () => {
       <>
          <Box
             w="100%"
-            h="100%"
+            h={{ base: "55vh", md: "100%" }}
             bg="white"
             boxShadow="sm"
             p={8}
@@ -57,7 +57,7 @@ const ThingsToDoSection = () => {
             <Heading as="h3" size="md" color="gray.600">
                Things To Do
             </Heading>
-            <SimpleGrid columns={2} spacing={8} mt={8}>
+            <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={8} mt={8}>
                <LinkBox {...linkBoxProps}>
                   <Flex alignItems="center" justifyContent="center" h="100%">
                      <ViewIcon color="green.400" w={5} height={5} mr={5} />

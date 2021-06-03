@@ -17,7 +17,7 @@ const CreateHousehold = () => {
             <title>Financial Portal - Create Household</title>
          </Helmet>
          <>
-            <Navbar />
+            <Navbar page="" />
             <Container maxW="container.xl" h="75vh" mt={16}>
                <Grid
                   h="100%"

@@ -10,6 +10,8 @@ import {
    LinkOverlay,
    VStack,
    Text,
+   DrawerFooter,
+   Button,
 } from "@chakra-ui/react";
 
 // UseSelector hook to access store
@@ -17,6 +19,9 @@ import { useSelector } from "react-redux";
 
 // Navlink From React Router
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import { setUser } from "../../slicers/authSlice";
 
 const MobileSidebar = ({ isOpen, onClose, page }) => {
    const user = useSelector((state) => state.auth.user);
@@ -43,6 +48,16 @@ const MobileSidebar = ({ isOpen, onClose, page }) => {
                  page: "household",
               },
            ];
+
+   const dispatch = useDispatch();
+
+   const history = useHistory();
+
+   const logoutHandler = () => {
+      localStorage.removeItem("token");
+      dispatch(setUser(null));
+      history.push("/login");
+   };
 
    return (
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="lg">
@@ -91,6 +106,18 @@ const MobileSidebar = ({ isOpen, onClose, page }) => {
                   ))}
                </VStack>
             </DrawerBody>
+            <DrawerFooter>
+               <Button
+                  colorScheme="red"
+                  variant="outline"
+                  onClick={logoutHandler}
+                  position="absolute"
+                  left={6}
+                  bottom={6}
+               >
+                  Logout
+               </Button>
+            </DrawerFooter>
          </DrawerContent>
       </Drawer>
    );

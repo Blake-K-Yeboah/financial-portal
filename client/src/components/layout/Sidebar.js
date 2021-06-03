@@ -38,7 +38,15 @@ const Sidebar = ({ page }) => {
            ];
 
    return (
-      <Box w="100%" h="100%" bg="white" boxShadow="sm" p={8} borderRadius={8}>
+      <Box
+         w="100%"
+         h="100%"
+         bg="white"
+         boxShadow="sm"
+         p={8}
+         borderRadius={8}
+         display={{ base: "none", md: "block" }}
+      >
          <Flex mb={8}>
             <Box
                borderRadius="50%"

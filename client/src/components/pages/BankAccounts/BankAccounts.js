@@ -41,13 +41,25 @@ const BankAccounts = () => {
             <title>Financial Portal - Bank Accounts</title>
          </Helmet>
          <>
-            <Navbar />
-            <Container maxW="container.xl" h="75vh" overflowY="hidden" mt={16}>
-               <Grid h="100%" templateColumns="repeat(8, 1fr)" gap={4}>
-                  <GridItem colSpan={2}>
+            <Navbar page="bankaccount" />
+            <Container
+               maxW="container.xl"
+               h={{ base: "90vh", md: "75vh" }}
+               overflowY="hidden"
+               mt={{ base: 0, md: 16 }}
+            >
+               <Grid
+                  h="100%"
+                  templateColumns={{
+                     base: "repeat(8, 1fr)",
+                     xl: "repeat(8, 1fr)",
+                  }}
+                  gap={4}
+               >
+                  <GridItem colSpan={{ base: 0, md: 3, lg: 2 }}>
                      <Sidebar page="bankaccount" />
                   </GridItem>
-                  <GridItem colSpan={6}>
+                  <GridItem colSpan={{ base: 8, md: 5, lg: 6 }}>
                      <AllAccounts onOpen={onOpen} />
                   </GridItem>
                </Grid>

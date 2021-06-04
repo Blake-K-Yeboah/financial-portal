@@ -11,6 +11,9 @@ import { Helmet } from "react-helmet";
 import Navbar from "../../layout/Navbar";
 import Sidebar from "../../layout/Sidebar";
 import CurrentBalance from "./CurrentBalance";
+import Spending from "./Spending";
+import Deposits from "./Deposits";
+import AllTransactions from "./AllTransactions";
 
 // useDispatch
 import { useDispatch, useSelector } from "react-redux";
@@ -23,8 +26,6 @@ import axios from "axios";
 
 // Store Actions
 import { setUser } from "../../../slicers/authSlice";
-import Spending from "./Spending";
-import Deposits from "./Deposits";
 
 const IndividualBankAccount = (props) => {
    const {
@@ -118,10 +119,9 @@ const IndividualBankAccount = (props) => {
                   <GridItem
                      colSpan={{ base: 5, sm: 8, md: 5, lg: 6 }}
                      rowSpan={2}
-                     background="white"
-                     borderRadius={8}
-                     boxShadow="sm"
-                  ></GridItem>
+                  >
+                     <AllTransactions bankAccount={bankAccount} />
+                  </GridItem>
 
                   <GridItem
                      colSpan={{ base: 5, sm: 8, md: 5, lg: 6 }}

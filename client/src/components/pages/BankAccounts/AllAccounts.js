@@ -125,7 +125,7 @@ const AllAccounts = ({ onOpen }) => {
                                     ml={4}
                                     onClick={redirectUser.bind(
                                        this,
-                                       `/bank-accounts/${account._id}/edit`
+                                       `/bank-accounts/${account._id}/?editing=1`
                                     )}
                                  >
                                     Edit Account

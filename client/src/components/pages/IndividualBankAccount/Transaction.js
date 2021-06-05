@@ -21,10 +21,13 @@ import { EditIcon, DeleteIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
 // Axios
 import axios from "axios";
 
-// useSelector hook
-import { useSelector } from "react-redux";
+// useSelector + useDispatch hook
+import { useDispatch, useSelector } from "react-redux";
 
-const Transaction = ({ transaction, bankAccountID }) => {
+// UpdateBankAccount Action
+import { updateBankAccount } from "../../../slicers/bankAccountsSlice";
+
+const Transaction = ({ transaction, bankAccountID, setBankAccount }) => {
    const date = new Date(transaction.date);
 
    const dateOutput = `${date.toLocaleString("en-us", {
@@ -50,6 +53,8 @@ const Transaction = ({ transaction, bankAccountID }) => {
 
    const token = useSelector((state) => state.auth.token);
 
+   const dispatch = useDispatch();
+
    const updateTransaction = async () => {
       const body = { ...userInput, bankId: bankAccountID };
       try {
@@ -64,14 +69,16 @@ const Transaction = ({ transaction, bankAccountID }) => {
          );
 
          toast({
-            title: "Transaction updated.",
-            description: "You may need to refresh for changed to take effect.",
+            title: "Transaction Updated",
             status: "success",
             duration: 7000,
             isClosable: true,
          });
 
          setEditingMode(false);
+
+         dispatch(updateBankAccount(res.data));
+         setBankAccount(res.data);
       } catch (err) {
          toast({
             title: "An error occured.",

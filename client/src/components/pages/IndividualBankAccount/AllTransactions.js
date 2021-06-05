@@ -13,7 +13,7 @@ import {
 // Components
 import Transaction from "./Transaction";
 
-const AllTransactions = ({ bankAccount }) => {
+const AllTransactions = ({ bankAccount, setBankAccount }) => {
    return (
       <Box
          w="100%"
@@ -58,6 +58,8 @@ const AllTransactions = ({ bankAccount }) => {
                      <Transaction
                         transaction={transaction}
                         bankAccountID={bankAccount._id}
+                        key={transaction._id}
+                        setBankAccount={setBankAccount}
                      />
                   ))}
                </Tbody>

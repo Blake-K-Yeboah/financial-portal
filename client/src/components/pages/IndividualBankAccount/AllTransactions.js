@@ -8,6 +8,8 @@ import {
    Tbody,
    Tr,
    Th,
+   Td,
+   Button,
 } from "@chakra-ui/react";
 
 // Components
@@ -62,6 +64,13 @@ const AllTransactions = ({ bankAccount, setBankAccount }) => {
                         setBankAccount={setBankAccount}
                      />
                   ))}
+                  <Tr>
+                     <Td>
+                        <Button colorScheme="green" size="xs" pl={8} pr={8}>
+                           Add Transaction
+                        </Button>
+                     </Td>
+                  </Tr>
                </Tbody>
             </Table>
          ) : (

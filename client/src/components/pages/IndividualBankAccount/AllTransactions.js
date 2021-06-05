@@ -8,12 +8,10 @@ import {
    Tbody,
    Tr,
    Th,
-   Td,
-   Flex,
 } from "@chakra-ui/react";
 
-// Icons
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+// Components
+import Transaction from "./Transaction";
 
 const AllTransactions = ({ bankAccount }) => {
    return (
@@ -56,55 +54,12 @@ const AllTransactions = ({ bankAccount }) => {
                   </Tr>
                </Thead>
                <Tbody>
-                  {bankAccount.transactions.map((transaction) => {
-                     const date = new Date(transaction.date);
-
-                     const dateOutput = `${date.toLocaleString("en-us", {
-                        weekday: "long",
-                     })}, ${date.getDate()} ${date.toLocaleString("default", {
-                        month: "long",
-                     })} ${date.getFullYear()} - ${
-                        date.getHours() > 12
-                           ? date.getHours() - 12
-                           : date.getHours()
-                     }:${date.getMinutes()} ${
-                        date.getHours() > 12 ? "PM" : "AM"
-                     }`;
-
-                     return (
-                        <Tr key={transaction._id}>
-                           <Td
-                              color={
-                                 transaction.type === "deposit"
-                                    ? "green.400"
-                                    : "red.400"
-                              }
-                              fontWeight="medium"
-                           >
-                              ${transaction.amount}
-                           </Td>
-                           <Td fontSize="sm">{transaction.memo}</Td>
-                           <Td fontSize="sm">{dateOutput}</Td>
-                           <Td>
-                              <Flex>
-                                 <EditIcon
-                                    w={5}
-                                    h={5}
-                                    color="green.400"
-                                    cursor="pointer"
-                                 />
-                                 <DeleteIcon
-                                    ml={2}
-                                    w={5}
-                                    h={5}
-                                    color="red.400"
-                                    cursor="pointer"
-                                 />
-                              </Flex>
-                           </Td>
-                        </Tr>
-                     );
-                  })}
+                  {bankAccount.transactions.map((transaction) => (
+                     <Transaction
+                        transaction={transaction}
+                        bankAccountID={bankAccount._id}
+                     />
+                  ))}
                </Tbody>
             </Table>
          ) : (

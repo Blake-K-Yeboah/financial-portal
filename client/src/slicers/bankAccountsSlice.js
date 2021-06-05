@@ -17,6 +17,12 @@ export const bankAccountsSlice = createSlice({
             (account) => account._id !== action.payload
          );
       },
+      updateBankAccount: (state, action) => {
+         const index = state.bankAccounts.findIndex(
+            (account) => account._id === action.payload._id
+         );
+         state.bankAccounts[index] = action.payload;
+      },
    },
 });
 
@@ -24,6 +30,7 @@ export const {
    setBankAccounts,
    addBankAccount,
    removeBankAccount,
+   updateBankAccount,
 } = bankAccountsSlice.actions;
 
 export default bankAccountsSlice.reducer;

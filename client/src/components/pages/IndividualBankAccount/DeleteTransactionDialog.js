@@ -7,9 +7,60 @@ import {
    AlertDialogContent,
    AlertDialogOverlay,
    Button,
+   useToast,
 } from "@chakra-ui/react";
 
-const DeleteTransactionDialog = ({ isOpen, onClose, transaction }) => {
+// useSelector Hook
+import { useSelector } from "react-redux";
+
+// Axios
+import axios from "axios";
+
+const DeleteTransactionDialog = ({
+   isOpen,
+   onClose,
+   transaction,
+   setBankAccount,
+   bankAccountID,
+}) => {
+   const token = useSelector((state) => state.auth.token);
+
+   const toast = useToast();
+
+   const deleteTransaction = async () => {
+      const body = { bankId: bankAccountID };
+
+      try {
+         const res = await axios.delete(
+            `/api/transactions/${transaction._id}`,
+            {
+               headers: {
+                  Authorization: `Bearer ${token}`,
+               },
+               data: {
+                  ...body,
+               },
+            }
+         );
+
+         toast({
+            title: "Transaction Deleted",
+            status: "success",
+            duration: 7000,
+            isClosable: true,
+         });
+
+         setBankAccount(res.data);
+      } catch (err) {
+         toast({
+            title: "An error occured.",
+            status: "error",
+            duration: 7000,
+            isClosable: true,
+         });
+      }
+   };
+
    return (
       <AlertDialog isOpen={isOpen} onClose={onClose}>
          <AlertDialogOverlay>
@@ -24,7 +75,7 @@ const DeleteTransactionDialog = ({ isOpen, onClose, transaction }) => {
 
                <AlertDialogFooter>
                   <Button onClick={onClose}>Cancel</Button>
-                  <Button colorScheme="red" ml={3}>
+                  <Button colorScheme="red" ml={3} onClick={deleteTransaction}>
                      Delete
                   </Button>
                </AlertDialogFooter>

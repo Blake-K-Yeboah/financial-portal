@@ -10,73 +10,87 @@ import {
    Th,
    Td,
    Button,
+   useDisclosure,
 } from "@chakra-ui/react";
 
 // Components
 import Transaction from "./Transaction";
+import AddTransaction from "./AddTransaction";
 
 const AllTransactions = ({ bankAccount, setBankAccount }) => {
-   return (
-      <Box
-         w="100%"
-         h="100%"
-         maxH="100%"
-         bg="white"
-         boxShadow="sm"
-         position="relative"
-         p={8}
-         borderRadius={8}
-         overflowY="scroll"
-         sx={{
-            "&::-webkit-scrollbar": {
-               width: "5px",
-               backgroundColor: "gray.50",
-            },
-            "&::-webkit-scrollbar-thumb": {
-               backgroundColor: `green.400`,
-            },
-         }}
-      >
-         <Heading as="h3" size="md" color="gray.600">
-            Transactions
-         </Heading>
+   const { isOpen, onOpen, onClose } = useDisclosure();
 
-         {bankAccount && bankAccount.transactions.length === 0 ? (
-            <Text mt={4} color="gray.600">
-               You have no transactions for this account.
-            </Text>
-         ) : bankAccount ? (
-            <Table variant="simple" mt={4} w="100%">
-               <Thead>
-                  <Tr>
-                     <Th>Amount</Th>
-                     <Th>Memo</Th>
-                     <Th>Date</Th>
-                     <Th>Actions</Th>
-                  </Tr>
-               </Thead>
-               <Tbody>
-                  {bankAccount.transactions.map((transaction) => (
-                     <Transaction
-                        transaction={transaction}
-                        bankAccountID={bankAccount._id}
-                        key={transaction._id}
-                        setBankAccount={setBankAccount}
-                     />
-                  ))}
-                  <Tr>
-                     <Td>
-                        <Button colorScheme="green" size="xs" pl={8} pr={8}>
-                           Add Transaction
-                        </Button>
-                     </Td>
-                  </Tr>
-               </Tbody>
-            </Table>
-         ) : (
-            "..."
-         )}
-      </Box>
+   return (
+      <>
+         <AddTransaction isOpen={isOpen} onClose={onClose} />
+         <Box
+            w="100%"
+            h="100%"
+            maxH="100%"
+            bg="white"
+            boxShadow="sm"
+            position="relative"
+            px={8}
+            pt={6}
+            borderRadius={8}
+            overflowY="scroll"
+            sx={{
+               "&::-webkit-scrollbar": {
+                  width: "5px",
+                  backgroundColor: "gray.50",
+               },
+               "&::-webkit-scrollbar-thumb": {
+                  backgroundColor: `green.400`,
+               },
+            }}
+         >
+            <Heading as="h3" size="md" color="gray.600">
+               Transactions
+            </Heading>
+
+            {bankAccount && bankAccount.transactions.length === 0 ? (
+               <Text mt={4} color="gray.600">
+                  You have no transactions for this account.
+               </Text>
+            ) : bankAccount ? (
+               <Table variant="simple" mt={4} w="100%">
+                  <Thead>
+                     <Tr>
+                        <Th>Amount</Th>
+                        <Th>Memo</Th>
+                        <Th>Date</Th>
+                        <Th>Actions</Th>
+                     </Tr>
+                  </Thead>
+                  <Tbody>
+                     {bankAccount.transactions.map((transaction) => (
+                        <Transaction
+                           transaction={transaction}
+                           bankAccountID={bankAccount._id}
+                           key={transaction._id}
+                           setBankAccount={setBankAccount}
+                        />
+                     ))}
+                     <Tr>
+                        <Td>
+                           <Button
+                              colorScheme="green"
+                              size="xs"
+                              pl={8}
+                              pr={8}
+                              onClick={onOpen}
+                           >
+                              Add Transaction
+                           </Button>
+                        </Td>
+                     </Tr>
+                  </Tbody>
+               </Table>
+            ) : (
+               "..."
+            )}
+         </Box>
+      </>
    );
 };
 

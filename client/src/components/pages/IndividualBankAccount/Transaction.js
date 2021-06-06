@@ -228,6 +228,8 @@ const Transaction = ({ transaction, bankAccountID, setBankAccount }) => {
             isOpen={isOpen}
             onClose={onClose}
             transaction={transaction}
+            setBankAccount={setBankAccount}
+            bankAccountID={bankAccountID}
          />
       </>
    );

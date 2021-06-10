@@ -1,5 +1,13 @@
 // Chakra UI Components
-import { Box, chakra, Heading, Text, Spinner, Button } from "@chakra-ui/react";
+import {
+   Box,
+   chakra,
+   Heading,
+   Text,
+   Spinner,
+   Button,
+   Tooltip,
+} from "@chakra-ui/react";
 
 // useSelector hook to access state
 import { useSelector } from "react-redux";
@@ -60,9 +68,11 @@ const BankAccountDetails = ({ bankAccount }) => {
                      Link To Household
                   </Button>
                ) : (
-                  <Button colorScheme="gray" size="sm" mt={6} disabled>
-                     Link To Household
-                  </Button>
+                  <Tooltip label="You're not in a household">
+                     <Button color="gray.500" size="sm" mt={6} cursor="default">
+                        Link To Household
+                     </Button>
+                  </Tooltip>
                )}
             </>
          ) : (

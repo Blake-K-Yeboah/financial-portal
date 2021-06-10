@@ -14,6 +14,7 @@ import CurrentBalance from "./CurrentBalance";
 import Spending from "./Spending";
 import Deposits from "./Deposits";
 import AllTransactions from "./AllTransactions";
+import BankAccountDetails from "./BankAccountDetails";
 
 // useDispatch
 import { useDispatch, useSelector } from "react-redux";
@@ -120,19 +121,18 @@ const IndividualBankAccount = (props) => {
                      colSpan={{ base: 5, sm: 8, md: 5, lg: 6 }}
                      rowSpan={2}
                   >
-                     <AllTransactions
-                        bankAccount={bankAccount}
-                        setBankAccount={setBankAccount}
-                     />
+                     <BankAccountDetails bankAccount={bankAccount} />
                   </GridItem>
 
                   <GridItem
                      colSpan={{ base: 5, sm: 8, md: 5, lg: 6 }}
                      rowSpan={2}
-                     background="white"
-                     borderRadius={8}
-                     boxShadow="sm"
-                  ></GridItem>
+                  >
+                     <AllTransactions
+                        bankAccount={bankAccount}
+                        setBankAccount={setBankAccount}
+                     />
+                  </GridItem>
                </Grid>
             </Container>
          </>

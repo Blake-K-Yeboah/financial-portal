@@ -6,11 +6,8 @@ import {
    Text,
    Spinner,
    Button,
-   Tooltip,
+   Flex,
 } from "@chakra-ui/react";
-
-// useSelector hook to access state
-import { useSelector } from "react-redux";
 
 const BankAccountDetails = ({ bankAccount }) => {
    const date = bankAccount ? new Date(bankAccount.createdAt) : null;
@@ -24,9 +21,6 @@ const BankAccountDetails = ({ bankAccount }) => {
            date.getHours() > 12 ? date.getHours() - 12 : date.getHours()
         }:${date.getMinutes()} ${date.getHours() > 12 ? "PM" : "AM"}`
       : "";
-
-   const role = useSelector((state) => state.auth.user.role);
-   const hasHousehold = role !== "personal";
 
    return (
       <Box
@@ -57,23 +51,14 @@ const BankAccountDetails = ({ bankAccount }) => {
                   <chakra.span fontWeight="medium">Created At: </chakra.span>
                   {dateDisplay}
                </Text>
-               {bankAccount.hasOwnProperty("linkedTo") &&
-               bankAccount.linkedTo !== "" ? (
-                  <Text fontSize={16} color="gray.600" mt={3}>
-                     <chakra.span fontWeight="medium">Linked To: </chakra.span>
-                     Your Household
-                  </Text>
-               ) : hasHousehold ? (
-                  <Button colorScheme="green" size="sm" mt={6}>
-                     Link To Household
+               <Flex mt={6}>
+                  <Button colorScheme="green" size="sm">
+                     Edit Details
                   </Button>
-               ) : (
-                  <Tooltip label="You're not in a household">
-                     <Button color="gray.500" size="sm" mt={6} cursor="default">
-                        Link To Household
-                     </Button>
-                  </Tooltip>
-               )}
+                  <Button colorScheme="red" size="sm" ml={4}>
+                     Delete Account
+                  </Button>
+               </Flex>
             </>
          ) : (
             <Spinner color="green.400" />

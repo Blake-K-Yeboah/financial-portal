@@ -89,7 +89,7 @@ const AllAccounts = (props) => {
                </Thead>
                <Tbody>
                   {bankAccounts.map((account) => (
-                     <IndividualAccount account={account} />
+                     <IndividualAccount account={account} key={account._id} />
                   ))}
                </Tbody>
             </Table>

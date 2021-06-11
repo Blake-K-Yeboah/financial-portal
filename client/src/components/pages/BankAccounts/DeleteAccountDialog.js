@@ -57,24 +57,32 @@ const DeleteAccountDialog = ({ isOpen, onClose, bankAccount }) => {
 
    return (
       <AlertDialog isOpen={isOpen} onClose={onClose}>
-         <AlertDialogOverlay>
-            <AlertDialogContent>
-               <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                  Delete Account Named '{bankAccount.name}'
-               </AlertDialogHeader>
+         {bankAccount ? (
+            <AlertDialogOverlay>
+               <AlertDialogContent>
+                  <AlertDialogHeader fontSize="lg" fontWeight="bold">
+                     Delete Account Named '{bankAccount.name}'
+                  </AlertDialogHeader>
 
-               <AlertDialogBody>
-                  Are you sure? You can't undo this action afterwards.
-               </AlertDialogBody>
+                  <AlertDialogBody>
+                     Are you sure? You can't undo this action afterwards.
+                  </AlertDialogBody>
 
-               <AlertDialogFooter>
-                  <Button onClick={onClose}>Cancel</Button>
-                  <Button colorScheme="red" ml={3} onClick={deleteBankAccount}>
-                     Delete
-                  </Button>
-               </AlertDialogFooter>
-            </AlertDialogContent>
-         </AlertDialogOverlay>
+                  <AlertDialogFooter>
+                     <Button onClick={onClose}>Cancel</Button>
+                     <Button
+                        colorScheme="red"
+                        ml={3}
+                        onClick={deleteBankAccount}
+                     >
+                        Delete
+                     </Button>
+                  </AlertDialogFooter>
+               </AlertDialogContent>
+            </AlertDialogOverlay>
+         ) : (
+            ""
+         )}
       </AlertDialog>
    );
 };

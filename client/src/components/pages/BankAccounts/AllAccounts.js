@@ -7,8 +7,6 @@ import {
    Tbody,
    Tr,
    Th,
-   Td,
-   Flex,
    Button,
    Text,
 } from "@chakra-ui/react";
@@ -16,13 +14,13 @@ import {
 // useSelector Hook to access state
 import { useSelector } from "react-redux";
 
-// useHistory Hook to redirect user
-import { useHistory } from "react-router-dom";
-
 // Add Icon For Create Bank Account Btn
 import { AddIcon } from "@chakra-ui/icons";
 
-const AllAccounts = ({ onOpen }) => {
+// Components
+import IndividualAccount from "./IndividualAccount";
+
+const AllAccounts = (props) => {
    const user = useSelector((state) => state.auth.user);
 
    const bankAccounts = useSelector((state) => {
@@ -30,16 +28,6 @@ const AllAccounts = ({ onOpen }) => {
          (account) => account.userId === user._id
       );
    });
-
-   const capitalise = (str) => {
-      return `${str[0].toUpperCase()}${str.substring(1, str.length)}`;
-   };
-
-   let history = useHistory();
-
-   const redirectUser = (route) => {
-      history.push(route);
-   };
 
    return (
       <Box
@@ -79,7 +67,7 @@ const AllAccounts = ({ onOpen }) => {
             right={{ md: 5, lg: 8 }}
             left={{ base: "50%", md: "initial" }}
             transform={{ base: "translateX(-50%)", md: "none" }}
-            onClick={onOpen}
+            onClick={props.onOpen}
             mt={{ base: 6, md: 0 }}
          >
             <AddIcon mr={2} /> Create Bank Account
@@ -100,41 +88,9 @@ const AllAccounts = ({ onOpen }) => {
                   </Tr>
                </Thead>
                <Tbody>
-                  {bankAccounts.map((account) => {
-                     return (
-                        <Tr key={account._id}>
-                           <Td>{account.name}</Td>
-                           <Td>{capitalise(account.type)}</Td>
-                           <Td>{account.transactions.length}</Td>
-                           <Td>
-                              <Flex>
-                                 <Button
-                                    colorScheme="green"
-                                    size="sm"
-                                    onClick={redirectUser.bind(
-                                       this,
-                                       `/bank-accounts/${account._id}`
-                                    )}
-                                 >
-                                    View Account
-                                 </Button>
-                                 <Button
-                                    colorScheme="green"
-                                    variant="outline"
-                                    size="sm"
-                                    ml={4}
-                                    onClick={redirectUser.bind(
-                                       this,
-                                       `/bank-accounts/${account._id}/edit`
-                                    )}
-                                 >
-                                    Edit Account
-                                 </Button>
-                              </Flex>
-                           </Td>
-                        </Tr>
-                     );
-                  })}
+                  {bankAccounts.map((account) => (
+                     <IndividualAccount account={account} />
+                  ))}
                </Tbody>
             </Table>
          )}

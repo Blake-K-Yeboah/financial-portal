@@ -22,7 +22,12 @@ const AllTransactions = ({ bankAccount, setBankAccount }) => {
 
    return (
       <>
-         <AddTransaction isOpen={isOpen} onClose={onClose} />
+         <AddTransaction
+            isOpen={isOpen}
+            onClose={onClose}
+            bankAccount={bankAccount}
+            setBankAccount={setBankAccount}
+         />
          <Box
             w="100%"
             h="100%"

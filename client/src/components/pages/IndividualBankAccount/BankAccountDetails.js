@@ -8,7 +8,12 @@ import {
    Button,
    Flex,
    useDisclosure,
+   Input,
+   Select,
 } from "@chakra-ui/react";
+
+// useState Hook
+import { useEffect, useState } from "react";
 
 // Components
 import DeleteAccountDialog from "../BankAccounts/DeleteAccountDialog";
@@ -27,6 +32,20 @@ const BankAccountDetails = ({ bankAccount }) => {
       : "";
 
    const { isOpen, onOpen, onClose } = useDisclosure();
+
+   const [editingStatus, setEditingStatus] = useState(false);
+
+   const [userInput, setUserInput] = useState({ name: "", type: "" });
+
+   const inputChange = (e) => {
+      setUserInput({ ...userInput, [e.target.id]: e.target.value });
+   };
+
+   useEffect(() => {
+      if (bankAccount) {
+         setUserInput({ name: bankAccount.name, type: bankAccount.type });
+      }
+   }, [bankAccount]);
 
    return (
       <>
@@ -48,33 +67,91 @@ const BankAccountDetails = ({ bankAccount }) => {
             <Heading as="h3" size="md" color="gray.600" mb={4}>
                Bank Account Details
             </Heading>
+
             {bankAccount ? (
                <>
-                  <Text fontSize={16} color="gray.600">
+                  <Text
+                     fontSize={16}
+                     color="gray.600"
+                     display={editingStatus ? "flex" : ""}
+                  >
                      <chakra.span fontWeight="medium">Name: </chakra.span>
-                     {bankAccount.name}
+                     {!editingStatus ? (
+                        bankAccount.name
+                     ) : (
+                        <Input
+                           size="xs"
+                           w={180}
+                           value={userInput.name}
+                           id="name"
+                           onChange={inputChange}
+                           ml={4}
+                        />
+                     )}
                   </Text>
-                  <Text fontSize={16} color="gray.600" mt={3}>
+                  <Text
+                     fontSize={16}
+                     color="gray.600"
+                     mt={3}
+                     display={editingStatus ? "flex" : ""}
+                  >
                      <chakra.span fontWeight="medium">Type: </chakra.span>
-                     {bankAccount.type[0].toUpperCase() +
-                        bankAccount.type.substring(1, bankAccount.type.length)}
+                     {!editingStatus ? (
+                        bankAccount.type[0].toUpperCase() +
+                        bankAccount.type.substring(1, bankAccount.type.length)
+                     ) : (
+                        <Select
+                           size="xs"
+                           w={180}
+                           value={userInput.type}
+                           id="type"
+                           onChange={inputChange}
+                           ml={4}
+                        >
+                           <option value="checking">Checking</option>
+                           <option value="savings">Savings</option>
+                           <option value="credit">Credit</option>
+                        </Select>
+                     )}
                   </Text>
                   <Text fontSize={16} color="gray.600" mt={3}>
                      <chakra.span fontWeight="medium">Created At: </chakra.span>
                      {dateDisplay}
                   </Text>
                   <Flex mt={6}>
-                     <Button colorScheme="green" size="sm">
-                        Edit Details
-                     </Button>
-                     <Button
-                        colorScheme="red"
-                        size="sm"
-                        ml={4}
-                        onClick={onOpen}
-                     >
-                        Delete Account
-                     </Button>
+                     {!editingStatus ? (
+                        <>
+                           <Button
+                              colorScheme="green"
+                              size="sm"
+                              onClick={setEditingStatus.bind(this, true)}
+                           >
+                              Edit Details
+                           </Button>
+                           <Button
+                              colorScheme="red"
+                              size="sm"
+                              ml={4}
+                              onClick={onOpen}
+                           >
+                              Delete Account
+                           </Button>
+                        </>
+                     ) : (
+                        <>
+                           <Button colorScheme="green" size="sm">
+                              Update
+                           </Button>
+                           <Button
+                              colorScheme="red"
+                              size="sm"
+                              ml={4}
+                              onClick={setEditingStatus.bind(this, false)}
+                           >
+                              Cancel
+                           </Button>
+                        </>
+                     )}
                   </Flex>
                </>
             ) : (

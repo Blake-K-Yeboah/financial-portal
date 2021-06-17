@@ -47,6 +47,10 @@ const BankAccountDetails = ({ bankAccount }) => {
       }
    }, [bankAccount]);
 
+   const updateHandler = () => {
+      // TODO: Update Handler
+   };
+
    return (
       <>
          <DeleteAccountDialog
@@ -139,7 +143,11 @@ const BankAccountDetails = ({ bankAccount }) => {
                         </>
                      ) : (
                         <>
-                           <Button colorScheme="green" size="sm">
+                           <Button
+                              colorScheme="green"
+                              size="sm"
+                              onClick={updateHandler}
+                           >
                               Update
                            </Button>
                            <Button

@@ -10,6 +10,7 @@ import {
    useDisclosure,
    Input,
    Select,
+   useToast,
 } from "@chakra-ui/react";
 
 // useState Hook
@@ -18,24 +19,26 @@ import { useEffect, useState } from "react";
 // Components
 import DeleteAccountDialog from "../BankAccounts/DeleteAccountDialog";
 
-const BankAccountDetails = ({ bankAccount }) => {
-   const date = bankAccount ? new Date(bankAccount.createdAt) : null;
+// Axios
+import axios from "axios";
 
-   const dateDisplay = date
-      ? `${date.toLocaleString("en-us", {
-           weekday: "long",
-        })}, ${date.getDate()} ${date.toLocaleString("default", {
-           month: "long",
-        })} ${date.getFullYear()} - ${
-           date.getHours() > 12 ? date.getHours() - 12 : date.getHours()
-        }:${date.getMinutes()} ${date.getHours() > 12 ? "PM" : "AM"}`
-      : "";
+// Redux Hooks
+import { useDispatch, useSelector } from "react-redux";
 
+// Redux Actions
+import { updateBankAccount } from "../../../slicers/bankAccountsSlice";
+
+const BankAccountDetails = ({ bankAccount, setBankAccount }) => {
    const { isOpen, onOpen, onClose } = useDisclosure();
 
    const [editingStatus, setEditingStatus] = useState(false);
 
-   const [userInput, setUserInput] = useState({ name: "", type: "" });
+   const [userInput, setUserInput] = useState({
+      name: "",
+      type: "",
+      balance: "",
+      lowBalanceAlert: "",
+   });
 
    const inputChange = (e) => {
       setUserInput({ ...userInput, [e.target.id]: e.target.value });
@@ -43,12 +46,56 @@ const BankAccountDetails = ({ bankAccount }) => {
 
    useEffect(() => {
       if (bankAccount) {
-         setUserInput({ name: bankAccount.name, type: bankAccount.type });
+         setUserInput({
+            name: bankAccount.name,
+            type: bankAccount.type,
+            balance: bankAccount.balance,
+            lowBalanceAlert: bankAccount.lowBalanceAlert,
+         });
       }
    }, [bankAccount]);
 
-   const updateHandler = () => {
-      // TODO: Update Handler
+   const toast = useToast();
+
+   const token = useSelector((state) => state.auth.token);
+
+   const dispatch = useDispatch();
+
+   const [isLoading, setIsLoading] = useState(false);
+
+   const updateHandler = async () => {
+      setIsLoading(true);
+      try {
+         const res = await axios.put(
+            `/api/bankaccounts/${bankAccount._id}`,
+            userInput,
+            {
+               headers: {
+                  Authorization: `Bearer ${token}`,
+               },
+            }
+         );
+
+         toast({
+            title: "Bank Account Updated",
+            status: "success",
+            duration: 7000,
+            isClosable: true,
+         });
+
+         setEditingStatus(false);
+         setIsLoading(false);
+
+         dispatch(updateBankAccount(res.data));
+         setBankAccount(res.data);
+      } catch (err) {
+         toast({
+            title: "An error occured.",
+            status: "error",
+            duration: 7000,
+            isClosable: true,
+         });
+      }
    };
 
    return (
@@ -118,9 +165,49 @@ const BankAccountDetails = ({ bankAccount }) => {
                         </Select>
                      )}
                   </Text>
-                  <Text fontSize={16} color="gray.600" mt={3}>
-                     <chakra.span fontWeight="medium">Created At: </chakra.span>
-                     {dateDisplay}
+                  <Text
+                     fontSize={16}
+                     color="gray.600"
+                     mt={3}
+                     display={editingStatus ? "flex" : ""}
+                  >
+                     <chakra.span fontWeight="medium">
+                        Starting Balance:{" "}
+                     </chakra.span>
+                     {!editingStatus ? (
+                        bankAccount.balance
+                     ) : (
+                        <Input
+                           size="xs"
+                           w={180}
+                           value={userInput.balance}
+                           id="balance"
+                           onChange={inputChange}
+                           ml={4}
+                        />
+                     )}
+                  </Text>
+                  <Text
+                     fontSize={16}
+                     color="gray.600"
+                     mt={3}
+                     display={editingStatus ? "flex" : ""}
+                  >
+                     <chakra.span fontWeight="medium">
+                        Low Balance Alert:{" "}
+                     </chakra.span>
+                     {!editingStatus ? (
+                        bankAccount.lowBalanceAlert
+                     ) : (
+                        <Input
+                           size="xs"
+                           w={180}
+                           value={userInput.lowBalanceAlert}
+                           id="lowBalanceAlert"
+                           onChange={inputChange}
+                           ml={4}
+                        />
+                     )}
                   </Text>
                   <Flex mt={6}>
                      {!editingStatus ? (
@@ -147,6 +234,8 @@ const BankAccountDetails = ({ bankAccount }) => {
                               colorScheme="green"
                               size="sm"
                               onClick={updateHandler}
+                              isLoading={isLoading}
+                              loadingText="Updating"
                            >
                               Update
                            </Button>

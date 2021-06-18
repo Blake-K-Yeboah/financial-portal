@@ -121,7 +121,10 @@ const IndividualBankAccount = (props) => {
                      colSpan={{ base: 5, sm: 8, md: 5, lg: 6 }}
                      rowSpan={2}
                   >
-                     <BankAccountDetails bankAccount={bankAccount} />
+                     <BankAccountDetails
+                        bankAccount={bankAccount}
+                        setBankAccount={setBankAccount}
+                     />
                   </GridItem>
 
                   <GridItem

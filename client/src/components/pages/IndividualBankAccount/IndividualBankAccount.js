@@ -71,7 +71,7 @@ const IndividualBankAccount = (props) => {
             </title>
          </Helmet>
          <>
-            <Navbar page="home" />
+            <Navbar page="bankaccount" />
             <Container
                maxW="container.xl"
                h={{ base: "120vh", md: "75vh" }}

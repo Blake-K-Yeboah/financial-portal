@@ -1,11 +1,12 @@
 // Chakra Ui Components
-import { Box, Button, Heading, Flex } from "@chakra-ui/react";
+import { Box, Heading, Flex } from "@chakra-ui/react";
 
 // Redux Hooks
 import { useSelector } from "react-redux";
 
 // Components
 import DeleteHouseholdDialog from "./DeleteHouseholdDialog";
+import InviteUserModal from "./InviteUserModal";
 
 const HouseholdActions = () => {
    const userRole = useSelector((state) => state.auth.user.role);
@@ -26,7 +27,7 @@ const HouseholdActions = () => {
          <Flex>
             {userRole === "owner" ? (
                <>
-                  <Button colorScheme="green">Invite User To Household</Button>
+                  <InviteUserModal />
                   <DeleteHouseholdDialog />
                </>
             ) : (

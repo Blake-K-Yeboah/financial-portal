@@ -16,6 +16,7 @@ import Home from "./components/pages/Home/Home";
 import BankAccounts from "./components/pages/BankAccounts/BankAccounts";
 import CreateHousehold from "./components/pages/CreateHousehold/CreateHousehold";
 import IndividualBankAccount from "./components/pages/IndividualBankAccount/IndividualBankAccount";
+import Household from "./components/pages/Household/Household";
 
 // useDispatch hook and useSelector hook
 import { useDispatch, useSelector } from "react-redux";
@@ -91,6 +92,15 @@ const App = () => {
                render={(props) => {
                   if (!isAuthenticated) return <Redirect to="/login" />;
                   return <CreateHousehold {...props} />;
+               }}
+            />
+
+            <Route
+               exact
+               path="/household"
+               render={(props) => {
+                  if (!isAuthenticated) return <Redirect to="/login" />;
+                  return <Household {...props} />;
                }}
             />
          </Switch>

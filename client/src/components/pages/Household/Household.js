@@ -11,6 +11,7 @@ import { Helmet } from "react-helmet";
 import Navbar from "../../layout/Navbar";
 import Sidebar from "../../layout/Sidebar";
 import HouseholdActions from "./HouseholdActions";
+import Members from "./Members";
 
 // useDispatch
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +21,8 @@ import { useHistory } from "react-router";
 
 // Api Requests
 import { fetchHouseholdData } from "../../../util/apiRequests";
+import HouseholdSpending from "./HouseholdSpending";
+import HouseholdDeposits from "./HouseholdDeposits";
 
 const Household = () => {
    const dispatch = useDispatch();
@@ -49,27 +52,15 @@ const Household = () => {
                   <GridItem rowSpan={5} colSpan={2}>
                      <Sidebar page="household" />
                   </GridItem>
-                  <GridItem
-                     colSpan={2}
-                     rowSpan={1}
-                     background="white"
-                     borderRadius={8}
-                     boxShadow="sm"
-                  ></GridItem>
-                  <GridItem
-                     colSpan={2}
-                     rowSpan={1}
-                     background="white"
-                     borderRadius={8}
-                     boxShadow="sm"
-                  ></GridItem>
-                  <GridItem
-                     colSpan={2}
-                     rowSpan={1}
-                     background="white"
-                     borderRadius={8}
-                     boxShadow="sm"
-                  ></GridItem>
+                  <GridItem colSpan={2} rowSpan={1}>
+                     <Members />
+                  </GridItem>
+                  <GridItem colSpan={2} rowSpan={1}>
+                     <HouseholdSpending />
+                  </GridItem>
+                  <GridItem colSpan={2} rowSpan={1}>
+                     <HouseholdDeposits />
+                  </GridItem>
                   <GridItem
                      colSpan={6}
                      rowSpan={3}

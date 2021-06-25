@@ -6,14 +6,14 @@ const { validateTransactionInput } = require("../validation/transactions");
 
 // Get Transactions For Household
 const getTransactionsForHousehold = async (req, res) => {
-   if (!req.body.householdId) {
+   if (!req.query.householdId) {
       return res
          .status(400)
          .json({ errors: { household: "Must provide a household id" } });
    }
 
    const bankAccounts = await BankAccount.find({
-      linkedTo: req.body.householdId,
+      linkedTo: req.query.householdId,
    });
 
    if (!bankAccounts) {

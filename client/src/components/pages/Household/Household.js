@@ -26,6 +26,7 @@ import {
    fetchBankAccounts,
    fetchHouseholdData,
 } from "../../../util/apiRequests";
+import HouseholdAccountsAndTransactions from "./HouseholdAccountsAndTransactions";
 
 const Household = () => {
    const dispatch = useDispatch();
@@ -65,13 +66,9 @@ const Household = () => {
                   <GridItem colSpan={2} rowSpan={1}>
                      <HouseholdDeposits />
                   </GridItem>
-                  <GridItem
-                     colSpan={6}
-                     rowSpan={3}
-                     background="white"
-                     borderRadius={8}
-                     boxShadow="sm"
-                  ></GridItem>
+                  <GridItem colSpan={6} rowSpan={3}>
+                     <HouseholdAccountsAndTransactions />
+                  </GridItem>
                   <GridItem colSpan={6} rowSpan={1}>
                      <HouseholdActions />
                   </GridItem>

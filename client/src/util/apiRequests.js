@@ -38,7 +38,7 @@ export const fetchHouseholdData = async (token, dispatch, history) => {
          headers: {
             Authorization: `Bearer ${token}`,
          },
-         data: {
+         params: {
             householdId: household._id,
          },
       });

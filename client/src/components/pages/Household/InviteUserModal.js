@@ -100,7 +100,7 @@ const InviteUserModal = () => {
    return (
       <>
          <Button colorScheme="green" onClick={onOpen}>
-            Invite User To Household
+            Invite User
          </Button>
          <Modal isOpen={isOpen} onClose={onClose} isCentered size="lg">
             <ModalOverlay />

@@ -114,7 +114,7 @@ const LinkBankAccount = () => {
    return (
       <>
          <Button colorScheme="green" ml={6} onClick={onOpen}>
-            Link Bank Account To Household
+            Link Bank Account
          </Button>
          <Modal isOpen={isOpen} onClose={onClose} isCentered size="lg">
             <ModalOverlay />

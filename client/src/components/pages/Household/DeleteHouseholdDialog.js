@@ -39,6 +39,7 @@ const DeleteHouseholdDialog = () => {
 
    const deleteHousehold = async () => {
       try {
+         // eslint-disable-next-line
          const res = await axios.delete(`/api/households/${household._id}`, {
             headers: {
                Authorization: `Bearer ${token}`,

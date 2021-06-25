@@ -59,6 +59,7 @@ const InviteUserModal = () => {
 
       if (emailRegex.test(userEmail.toLowerCase())) {
          try {
+            // eslint-disable-next-line
             const res = await axios.post(
                `/api/households/invite/${household._id}`,
                { userEmail },

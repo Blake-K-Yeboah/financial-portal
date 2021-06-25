@@ -12,6 +12,8 @@ import Navbar from "../../layout/Navbar";
 import Sidebar from "../../layout/Sidebar";
 import HouseholdActions from "./HouseholdActions";
 import Members from "./Members";
+import HouseholdSpending from "./HouseholdSpending";
+import HouseholdDeposits from "./HouseholdDeposits";
 
 // useDispatch
 import { useDispatch, useSelector } from "react-redux";
@@ -20,9 +22,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 
 // Api Requests
-import { fetchHouseholdData } from "../../../util/apiRequests";
-import HouseholdSpending from "./HouseholdSpending";
-import HouseholdDeposits from "./HouseholdDeposits";
+import {
+   fetchBankAccounts,
+   fetchHouseholdData,
+} from "../../../util/apiRequests";
 
 const Household = () => {
    const dispatch = useDispatch();
@@ -33,6 +36,7 @@ const Household = () => {
 
    useEffect(() => {
       fetchHouseholdData(token, dispatch, history);
+      fetchBankAccounts(token, dispatch, history);
    }, [dispatch, history, token]);
 
    return (

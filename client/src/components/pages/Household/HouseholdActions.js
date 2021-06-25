@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 // Components
 import DeleteHouseholdDialog from "./DeleteHouseholdDialog";
 import InviteUserModal from "./InviteUserModal";
+import LinkBankAccount from "./LinkBankAccount";
 
 const HouseholdActions = () => {
    const userRole = useSelector((state) => state.auth.user.role);
@@ -33,6 +34,7 @@ const HouseholdActions = () => {
             ) : (
                ""
             )}
+            <LinkBankAccount />
          </Flex>
       </Box>
    );

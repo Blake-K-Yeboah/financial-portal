@@ -68,7 +68,7 @@ const Home = () => {
                maxW="container.xl"
                h={{ base: "120vh", md: "75vh" }}
                overflowY="hidden"
-               mt={{ base: -16, md: 16 }}
+               mt={{ base: -20, md: 16 }}
             >
                <Grid
                   h="100%"
@@ -86,25 +86,25 @@ const Home = () => {
                      <Sidebar page="home" />
                   </GridItem>
                   <GridItem
-                     colSpan={{ base: 2, sm: 8, md: 2, lg: 2 }}
+                     colSpan={{ base: 8, sm: 8, md: 2, lg: 2 }}
                      rowSpan={1}
                   >
                      <BankAccountsBox />
                   </GridItem>
                   <GridItem
-                     colSpan={{ base: 1, sm: 8, md: 1, lg: 2 }}
+                     colSpan={{ base: 8, sm: 8, md: 1, lg: 2 }}
                      rowSpan={1}
                   >
                      <TransactionsBox />
                   </GridItem>
                   <GridItem
-                     colSpan={{ base: 2, sm: 8, md: 2, lg: 2 }}
+                     colSpan={{ base: 8, sm: 8, md: 2, lg: 2 }}
                      rowSpan={1}
                   >
                      <TotalSpentBox />
                   </GridItem>
                   <GridItem
-                     colSpan={{ base: 5, sm: 8, md: 5, lg: 6 }}
+                     colSpan={{ base: 8, sm: 8, md: 5, lg: 6 }}
                      rowSpan={4}
                   >
                      <ThingsToDoSection />

@@ -74,9 +74,10 @@ const IndividualBankAccount = (props) => {
             <Navbar page="bankaccount" />
             <Container
                maxW="container.xl"
-               h={{ base: "120vh", md: "75vh" }}
+               h={{ base: "130vh", md: "75vh" }}
                overflowY="hidden"
-               mt={{ base: -16, md: 16 }}
+               mt={{ base: -20, md: 16 }}
+               mb={{ base: 12, md: 0 }}
             >
                <Grid
                   h="100%"
@@ -94,31 +95,25 @@ const IndividualBankAccount = (props) => {
                      <Sidebar page="bankaccount" />
                   </GridItem>
                   <GridItem
-                     colSpan={{ base: 2, sm: 8, md: 2, lg: 2 }}
+                     colSpan={{ base: 8, sm: 8, md: 2, lg: 2 }}
                      rowSpan={1}
                   >
                      <CurrentBalance bankAccount={bankAccount} />
                   </GridItem>
                   <GridItem
-                     colSpan={{ base: 1, sm: 8, md: 1, lg: 2 }}
+                     colSpan={{ base: 8, sm: 8, md: 1, lg: 2 }}
                      rowSpan={1}
-                     background="white"
-                     borderRadius={8}
-                     boxShadow="sm"
                   >
                      <Spending bankAccount={bankAccount} />
                   </GridItem>
                   <GridItem
-                     colSpan={{ base: 2, sm: 8, md: 2, lg: 2 }}
+                     colSpan={{ base: 8, sm: 8, md: 2, lg: 2 }}
                      rowSpan={1}
-                     background="white"
-                     borderRadius={8}
-                     boxShadow="sm"
                   >
                      <Deposits bankAccount={bankAccount} />
                   </GridItem>
                   <GridItem
-                     colSpan={{ base: 5, sm: 8, md: 5, lg: 6 }}
+                     colSpan={{ base: 8, sm: 8, md: 5, lg: 6 }}
                      rowSpan={2}
                   >
                      <BankAccountDetails
@@ -128,7 +123,7 @@ const IndividualBankAccount = (props) => {
                   </GridItem>
 
                   <GridItem
-                     colSpan={{ base: 5, sm: 8, md: 5, lg: 6 }}
+                     colSpan={{ base: 8, sm: 8, md: 5, lg: 6 }}
                      rowSpan={2}
                   >
                      <AllTransactions

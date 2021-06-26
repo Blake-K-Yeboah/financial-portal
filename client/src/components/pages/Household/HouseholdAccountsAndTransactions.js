@@ -15,9 +15,24 @@ import { useSelector } from "react-redux";
 
 // Components
 import BankAccountsPanel from "./BankAccountsPanel";
+import TransactionsPanel from "./TransactionsPanel";
 
 const HouseholdAccountsAndTransactions = () => {
    const household = useSelector((state) => state.household.household);
+   const tabPanelProps = {
+      pl: -2,
+      overflowY: "scroll",
+      h: "300px",
+      sx: {
+         "&::-webkit-scrollbar": {
+            width: "5px",
+            backgroundColor: "gray.50",
+         },
+         "&::-webkit-scrollbar-thumb": {
+            backgroundColor: `green.400`,
+         },
+      },
+   };
 
    return (
       <Box w="100%" h="100%" bg="white" boxShadow="sm" p={8} borderRadius={8}>
@@ -55,23 +70,12 @@ const HouseholdAccountsAndTransactions = () => {
                      </Tab>
                   </TabList>
                   <TabPanels>
-                     <TabPanel
-                        pl={-2}
-                        overflowY="scroll"
-                        h="300px"
-                        sx={{
-                           "&::-webkit-scrollbar": {
-                              width: "5px",
-                              backgroundColor: "gray.50",
-                           },
-                           "&::-webkit-scrollbar-thumb": {
-                              backgroundColor: `green.400`,
-                           },
-                        }}
-                     >
+                     <TabPanel {...tabPanelProps}>
                         <BankAccountsPanel />
                      </TabPanel>
-                     <TabPanel pl={-2}>Transactions</TabPanel>
+                     <TabPanel {...tabPanelProps}>
+                        <TransactionsPanel />
+                     </TabPanel>
                   </TabPanels>
                </Tabs>
             </>

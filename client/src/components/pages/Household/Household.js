@@ -47,29 +47,56 @@ const Household = () => {
          </Helmet>
          <>
             <Navbar page="household" />
-            <Container maxW="container.xl" h="75vh" overflowY="hidden" mt={16}>
+            <Container
+               maxW="container.xl"
+               h={{ base: "130vh", md: "75vh" }}
+               overflowY="hidden"
+               mt={{ base: -20, md: 16 }}
+               mb={{ base: 12, md: 0 }}
+            >
                <Grid
                   h="100%"
-                  templateRows="repeat(5, 1fr)"
+                  templateRows={{
+                     base: "repeat(8, 1fr)",
+                     md: "repeat(5, 1fr)",
+                  }}
                   templateColumns="repeat(8, 1fr)"
                   gap={4}
                >
-                  <GridItem rowSpan={5} colSpan={2}>
+                  <GridItem
+                     rowSpan={{ base: 0, md: 5 }}
+                     colSpan={{ base: 0, md: 3, lg: 2 }}
+                  >
                      <Sidebar page="household" />
                   </GridItem>
-                  <GridItem colSpan={2} rowSpan={1}>
+                  <GridItem
+                     colSpan={{ base: 8, sm: 8, md: 2, lg: 2 }}
+                     rowSpan={1}
+                  >
                      <Members />
                   </GridItem>
-                  <GridItem colSpan={2} rowSpan={1}>
+                  <GridItem
+                     colSpan={{ base: 8, sm: 8, md: 1, lg: 2 }}
+                     rowSpan={1}
+                  >
                      <HouseholdSpending />
                   </GridItem>
-                  <GridItem colSpan={2} rowSpan={1}>
+                  <GridItem
+                     colSpan={{ base: 8, sm: 8, md: 2, lg: 2 }}
+                     rowSpan={1}
+                  >
                      <HouseholdDeposits />
                   </GridItem>
-                  <GridItem colSpan={6} rowSpan={3}>
+                  <GridItem
+                     colSpan={{ base: 8, sm: 8, md: 5, lg: 6 }}
+                     rowSpan={3}
+                  >
                      <HouseholdAccountsAndTransactions />
                   </GridItem>
-                  <GridItem colSpan={6} rowSpan={1}>
+                  <GridItem
+                     colSpan={{ base: 8, sm: 8, md: 5, lg: 6 }}
+                     rowSpan={1}
+                  >
                      <HouseholdActions />
                   </GridItem>
                </Grid>

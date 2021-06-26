@@ -60,7 +60,12 @@ const DeleteHouseholdDialog = () => {
 
    return (
       <>
-         <Button colorScheme="red" ml={6} onClick={onOpen}>
+         <Button
+            colorScheme="red"
+            ml={{ base: 0, sm: 6 }}
+            mt={{ base: 4, sm: 0 }}
+            onClick={onOpen}
+         >
             Delete Household
          </Button>
          <AlertDialog isOpen={isOpen} onClose={onClose}>

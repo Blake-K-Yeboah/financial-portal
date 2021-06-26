@@ -27,6 +27,7 @@ const HouseholdAccountsAndTransactions = () => {
          "&::-webkit-scrollbar": {
             width: "5px",
             backgroundColor: "gray.50",
+            height: "5px",
          },
          "&::-webkit-scrollbar-thumb": {
             backgroundColor: `green.400`,

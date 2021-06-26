@@ -113,6 +113,7 @@ const BankAccountDetails = ({ bankAccount, setBankAccount }) => {
             boxShadow="sm"
             position="relative"
             p={8}
+            pt={6}
             borderRadius={8}
          >
             <Heading as="h3" size="md" color="gray.600" mb={4}>
@@ -209,7 +210,7 @@ const BankAccountDetails = ({ bankAccount, setBankAccount }) => {
                         />
                      )}
                   </Text>
-                  <Flex mt={6}>
+                  <Flex mt={4}>
                      {!editingStatus ? (
                         <>
                            <Button

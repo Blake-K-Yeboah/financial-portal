@@ -13,6 +13,9 @@ import {
 // Redux Hooks
 import { useSelector } from "react-redux";
 
+// Components
+import BankAccountsPanel from "./BankAccountsPanel";
+
 const HouseholdAccountsAndTransactions = () => {
    const household = useSelector((state) => state.household.household);
 
@@ -29,7 +32,7 @@ const HouseholdAccountsAndTransactions = () => {
                   {household.name}
                </Heading>
                <Tabs mt={5} isFitted>
-                  <TabList mb={4}>
+                  <TabList mb={2}>
                      <Tab
                         fontWeight="medium"
                         color="gray.500"
@@ -52,8 +55,23 @@ const HouseholdAccountsAndTransactions = () => {
                      </Tab>
                   </TabList>
                   <TabPanels>
-                     <TabPanel>Accounts Go here</TabPanel>
-                     <TabPanel>Transactions Go here</TabPanel>
+                     <TabPanel
+                        pl={-2}
+                        overflowY="scroll"
+                        h="300px"
+                        sx={{
+                           "&::-webkit-scrollbar": {
+                              width: "5px",
+                              backgroundColor: "gray.50",
+                           },
+                           "&::-webkit-scrollbar-thumb": {
+                              backgroundColor: `green.400`,
+                           },
+                        }}
+                     >
+                        <BankAccountsPanel />
+                     </TabPanel>
+                     <TabPanel pl={-2}>Transactions</TabPanel>
                   </TabPanels>
                </Tabs>
             </>

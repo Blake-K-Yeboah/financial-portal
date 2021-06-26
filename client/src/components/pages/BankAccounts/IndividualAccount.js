@@ -1,5 +1,3 @@
-import React from "react";
-
 // useHistory Hook to redirect user
 import { useHistory } from "react-router-dom";
 

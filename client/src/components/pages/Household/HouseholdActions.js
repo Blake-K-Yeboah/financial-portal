@@ -25,7 +25,7 @@ const HouseholdActions = () => {
          <Heading as="h3" size="md" color="gray.600" mb={4}>
             Househould Actions
          </Heading>
-         <Flex>
+         <Flex flexDirection={{ base: "column", sm: "row" }}>
             {userRole === "owner" ? (
                <>
                   <InviteUserModal />

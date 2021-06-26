@@ -35,7 +35,15 @@ const HouseholdAccountsAndTransactions = () => {
    };
 
    return (
-      <Box w="100%" h="100%" bg="white" boxShadow="sm" p={8} borderRadius={8}>
+      <Box
+         w="100%"
+         h="100%"
+         bg="white"
+         boxShadow="sm"
+         p={8}
+         borderRadius={8}
+         overflow="hidden"
+      >
          {household ? (
             <>
                <Heading

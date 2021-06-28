@@ -9,6 +9,9 @@ const app = express();
 // Environment variables config to use '.env' file
 require("dotenv").config();
 
+// Set Static Folder
+app.use(express.static(path.join(__dirname, "client", "build")));
+
 // CORS Middleware
 app.use(cors());
 
@@ -36,6 +39,11 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/bankaccounts", require("./routes/bankaccounts"));
 app.use("/api/transactions", require("./routes/transactions"));
 app.use("/api/households", require("./routes/households"));
+
+// Serve React App
+app.get("*", (req, res) => {
+   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 // Define port variable to run server
 const port = process.env.PORT;

@@ -10,7 +10,7 @@ const app = express();
 // Environment variables config to use '.env' file
 require("dotenv").config();
 
-// Set Static Folder
+// Set Static Folder To React Build Folder
 app.use(express.static(path.join(__dirname, "client", "build")));
 
 // CORS Middleware

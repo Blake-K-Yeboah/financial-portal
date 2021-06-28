@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 
 // Initiate express server
 const app = express();
@@ -45,7 +46,7 @@ app.get("*", (req, res) => {
    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-// Define port variable to run server
+// Variable For Port to be hosted on
 const port = process.env.PORT;
 
 if (process.env.NODE_ENV !== "testing") {

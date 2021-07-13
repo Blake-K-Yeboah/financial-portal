@@ -2,6 +2,7 @@
 import {
    Button,
    chakra,
+   Flex,
    FormControl,
    FormLabel,
    Input,
@@ -24,7 +25,7 @@ import axios from "axios";
 // useHistory hook
 import { useHistory } from "react-router-dom";
 
-const RegisterForm = () => {
+const LoginForm = () => {
    // Redux Dispatch
    const dispatch = useDispatch();
 
@@ -54,12 +55,8 @@ const RegisterForm = () => {
    // History
    let history = useHistory();
 
-   // Handle Form Submission
-   const handleFormSubmit = async (e) => {
-      e.preventDefault();
-      setIsLoading(true);
-
-      // Api Request
+   // Login API Request
+   const loginRequest = () => {
       axios
          .post("/api/auth/login", userInput)
          .then((res) => {
@@ -72,6 +69,22 @@ const RegisterForm = () => {
             setIsLoading(false);
             dispatch(setErrors(Object.values(err.response.data.errors)));
          });
+   };
+
+   // Handle Form Submission
+   const handleFormSubmit = (e) => {
+      e.preventDefault();
+      setIsLoading(true);
+      loginRequest();
+   };
+
+   // Handle Login As Demo User Button Click
+   const loginAsDemoUser = () => {
+      setUserInput({
+         email: "demo@gmail.com",
+         password: "demo1234",
+      });
+      loginRequest();
    };
 
    return (
@@ -109,17 +122,30 @@ const RegisterForm = () => {
                </InputRightElement>
             </InputGroup>
          </FormControl>
-         <Button
-            colorScheme="green"
-            mt={inputMargin + 2}
-            type="submit"
-            isLoading={isLoading}
-            loadingText="Logging In"
-         >
-            Login
-         </Button>
+         <Flex mt={inputMargin + 2} justifyContent="center" alignItems="center">
+            <Button
+               colorScheme="green"
+               type="submit"
+               isLoading={isLoading}
+               loadingText="Logging In"
+            >
+               Login
+            </Button>
+            <chakra.span color="gray.600" mx={6}>
+               OR
+            </chakra.span>
+            <Button
+               colorScheme="green"
+               variant="outline"
+               onClick={loginAsDemoUser}
+               isLoading={isLoading}
+               loadingText="Logging In"
+            >
+               Login As Demo User
+            </Button>
+         </Flex>
       </chakra.form>
    );
 };
 
-export default RegisterForm;
+export default LoginForm;

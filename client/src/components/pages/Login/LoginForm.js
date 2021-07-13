@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 // useState Hook
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // useDispatch hook
 import { useDispatch } from "react-redux";
@@ -85,8 +85,14 @@ const LoginForm = () => {
          email: "demo@gmail.com",
          password: "demo1234",
       });
-      setTimeout(loginRequest, 1000);
    };
+
+   useEffect(() => {
+      if (isLoading) {
+         loginRequest();
+      }
+      // eslint-disable-next-line
+   }, [userInput]);
 
    return (
       <chakra.form py={5} w="85%" m="auto" onSubmit={handleFormSubmit}>
@@ -123,16 +129,26 @@ const LoginForm = () => {
                </InputRightElement>
             </InputGroup>
          </FormControl>
-         <Flex mt={inputMargin + 2} justifyContent="center" alignItems="center">
+         <Flex
+            mt={inputMargin + 2}
+            justifyContent="center"
+            alignItems="center"
+            flexDirection={{ base: "column", lg: "row" }}
+         >
             <Button
                colorScheme="green"
                type="submit"
                isLoading={isLoading}
                loadingText="Logging In"
+               width={{ base: "100%", lg: "initial" }}
             >
                Login
             </Button>
-            <chakra.span color="gray.600" mx={6}>
+            <chakra.span
+               color="gray.600"
+               mx={6}
+               display={{ base: "none", lg: "block" }}
+            >
                OR
             </chakra.span>
             <Button
@@ -141,6 +157,8 @@ const LoginForm = () => {
                onClick={loginAsDemoUser}
                isLoading={isLoading}
                loadingText="Logging In"
+               mt={{ base: inputMargin, lg: 0 }}
+               width={{ base: "100%", lg: "initial" }}
             >
                Login As Demo User
             </Button>

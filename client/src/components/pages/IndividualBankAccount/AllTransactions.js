@@ -11,6 +11,7 @@ import {
    Td,
    Button,
    useDisclosure,
+   chakra,
 } from "@chakra-ui/react";
 
 // Components
@@ -56,7 +57,15 @@ const AllTransactions = ({ bankAccount, setBankAccount }) => {
 
             {bankAccount && bankAccount.transactions.length === 0 ? (
                <Text mt={4} color="gray.600">
-                  You have no transactions for this account.
+                  You have no transactions for this account.{" "}
+                  <chakra.span
+                     color="green.400"
+                     textDecoration="underline"
+                     onClick={onOpen}
+                     cursor="pointer"
+                  >
+                     Add your first one
+                  </chakra.span>
                </Text>
             ) : bankAccount ? (
                <Table variant="simple" mt={4} w="100%">

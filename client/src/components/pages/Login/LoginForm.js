@@ -80,11 +80,12 @@ const LoginForm = () => {
 
    // Handle Login As Demo User Button Click
    const loginAsDemoUser = () => {
+      setIsLoading(true);
       setUserInput({
          email: "demo@gmail.com",
          password: "demo1234",
       });
-      loginRequest();
+      setTimeout(loginRequest, 1000);
    };
 
    return (
